@@ -424,17 +424,37 @@ def Orders():
             productID = request.form["productID"]
             quantity = request.form["quantity"]
 
-            #values acquired from form
-            orderProductValues = (orderID, productID, quantity)
+            #check to see if selected product is already assosciated with order
             
-            # query with placeholder values
-            query = "INSERT INTO OrderProducts (orderID, productID, quantity) VALUES (%s, %s, %s)"
-
-            #execute query with values acquired from form
+            #find product id in order
+            query0 = "SELECT productID FROM OrderProducts WHERE orderID = %s AND productID = %s"
             cur = mysql.connection.cursor()
-            cur.execute(query, orderProductValues)
-            mysql.connection.commit()
+            cur.execute(query0, (orderID, productID))
+            data0 = cur.fetchone()
+            #find product id in products
+            query1 = "SELECT productID FROM Products WHERE productID = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query1, (productID))
+            data1 = cur.fetchone()
 
+            #if product doesn't exist in current order, add to order
+            if data0 != data1:
+                # query with placeholder values
+                query2 = "INSERT INTO OrderProducts (orderID, productID, quantity) VALUES (%s, %s, %s)"
+
+                #execute query with values acquired from form
+                cur = mysql.connection.cursor()
+                cur.execute(query2, (orderID, productID, quantity))
+                mysql.connection.commit()
+
+            #if product already exists in order, add its quantity to existing value and update order
+            else:
+                query3 = "UPDATE OrderProducts SET quantity = quantity + %s WHERE orderID = %s AND productID = %s;"
+                cur = mysql.connection.cursor()
+                cur.execute(query3, (quantity, orderID, productID))
+                mysql.connection.commit()
+                return redirect('/orders')
+                
             #return to page
             return redirect('/orders')
         
@@ -511,8 +531,8 @@ def delete_order_item(id1, id2):
     return redirect("/orders")     
 
 #*****EDIT*****
-@app.route("/edit_order/<int:id>", methods=["POST","GET"])
-def edit_order(id):
+@app.route("/edit_order/<int:id>/<int:id2>", methods=["POST","GET"])
+def edit_order(id, id2):
 
     #if edit form is requested
     if request.method == "GET":
@@ -524,7 +544,7 @@ def edit_order(id):
         data = cur.fetchall()
 
         #get all data on specific orderproduct for order
-        query1 = "SELECT * FROM OrderProducts WHERE orderID = %s" % (id)
+        query1 = "SELECT * FROM OrderProducts WHERE orderID = %s AND productID = %s" % (id, id2)
         cur = mysql.connection.cursor()
         cur.execute(query1)
         data1 = cur.fetchall()
@@ -535,14 +555,8 @@ def edit_order(id):
         cur.execute(query2)
         data2 = cur.fetchall()
 
-        #get all customerID for dropdown
-        query3 = "SELECT customerID FROM Customers"
-        cur = mysql.connection.cursor()
-        cur.execute(query3)
-        data3 = cur.fetchall()
-
         #render edit page with specified data
-        return render_template("edit_order.j2", order=data, orderproducts=data1, products=data2, customers=data3)
+        return render_template("edit_order.j2", order=data, orderproducts=data1, products=data2)
 
     #if edit form is submitted
     if request.method == "POST":
@@ -551,35 +565,70 @@ def edit_order(id):
             #get all data from form
             orderID = request.form["orderID"]
             customerID = request.form["customerID"]
+            oldproductID = request.form["oldproductID"]
             datePurchased = request.form["datePurchased"]
             productID = request.form["productID"]
             quantity = request.form["quantity"]
 
             #values acquired from form
             #OrderProducts
-            orderProductValues = (productID, quantity, orderID, productID)
+            orderProductValues = (productID, quantity, orderID, oldproductID)
             #Orders
-            orderValues = (datePurchased, customerID, orderID, customerID)
+            orderValues = (datePurchased, orderID, customerID)
 
-            #update OrderProducts first
-            # query with placeholder values
-            query = "UPDATE OrderProducts SET productID = %s, quantity = %s WHERE orderID = %s AND productID = %s;"
-
-            #execute query with values acquired from form
+            #find product id in order
+            query0 = "SELECT productID FROM OrderProducts WHERE orderID = %s AND productID = %s"
             cur = mysql.connection.cursor()
-            cur.execute(query, orderProductValues)
-            mysql.connection.commit()
+            cur.execute(query0, (orderID, productID))
+            data0 = cur.fetchone()
+            #find product id in products
+            query1 = "SELECT productID FROM Products WHERE productID = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query1, (productID))
+            data1 = cur.fetchone()
+
+            #if product doesn't exist in current order, add to order
+            if data0 != data1:
+                # query with placeholder values
+                query2 = "UPDATE OrderProducts SET productID = %s, quantity = %s WHERE orderID = %s AND productID = %s;"
+
+                #execute query with values acquired from form
+                cur = mysql.connection.cursor()
+                cur.execute(query2, orderProductValues)
+                mysql.connection.commit()
+
+            #if productID hasn't changed, only update quantity
+            elif oldproductID == productID:
+
+                query3 ="UPDATE OrderProducts SET quantity = %s WHERE orderID = %s AND productID = %s;"
+                #execute query with values acquired from form
+                cur = mysql.connection.cursor()
+                cur.execute(query3, (quantity, orderID, oldproductID))
+                mysql.connection.commit()
+
+            #if product already exists in order, add its quantity to existing value, update order, delete previous order
+            else:
+                
+                query4 = "UPDATE OrderProducts SET quantity = quantity + %s WHERE orderID = %s AND productID = %s;"
+                cur = mysql.connection.cursor()
+                cur.execute(query4, (quantity, orderID, productID))
+                mysql.connection.commit()
+
+                query5 = "DELETE FROM OrderProducts WHERE orderID = %s AND productID = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query5, (orderID, oldproductID))
+                mysql.connection.commit()
 
             #now update Orders
             # query with placeholder values
-            query1 = "UPDATE Orders SET datePurchased = %s, customerID = %s WHERE orderID = %s AND customerID = %s;"
+            query6 = "UPDATE Orders SET datePurchased = %s WHERE orderID = %s AND customerID = %s;"
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
-            cur.execute(query1, orderValues)
+            cur.execute(query6, orderValues)
             mysql.connection.commit()
 
-            #return to customers page
+            #return to orders page
             return redirect("/orders")    
 
 

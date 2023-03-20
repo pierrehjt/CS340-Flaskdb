@@ -10,7 +10,7 @@
 
     <!-- display Orders table-->
     <body onload="browseOrders()">
-        <div id = "order_table">
+        <div id = "order_table" style="overflow-y:scroll;">
             <table border="2" cellpadding="3">
                 <tr>
                     <th>Date Purchased</th>
@@ -34,7 +34,7 @@
                             <td>{{item['title']}}</td>
                             <td>{{item['quantity_ordered']}}</td>
                             <td>{{item['total_price']}}</td>
-                            <td><a href="edit_order/{{item['orderID']}}" class="btn btn-default">Edit</a></td>
+                            <td><a href="edit_order/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Edit</a></td>
                             <!-- deletes this specific item purchase from the order -->
                             <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
                             <!-- deletes the entire order with all associated item purchases -->
@@ -104,7 +104,7 @@
                         <option value="0">&nbsp;</option>
                         {% for product in products %}       
                                     
-                            <option value="{{ product['productID'] }}"> {{product['title']}}</option> 
+                            <option value="{{ product['productID'] }}"> {{ product['productID'] }} - {{product['title']}}</option> 
                             
                         {% endfor %} 
                     </select>
