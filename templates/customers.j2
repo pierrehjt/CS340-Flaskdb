@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>Customers</title>
+</head>
+
+<body onload="browseCustomers()">
+    <h1>WineSeller</h1>
+    <h3>E-Commerce Wine Distributor</h3>
+    <p></p>
+
+    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
+    <div id = "customer_table">
+        <table border="1" cellpadding="3">
+            <tr>
+                <th>ID</th>
+                <th>username</th>
+                <th>password</th>
+                <th>first Name</th>
+                <th>last Name</th>
+                <th>birth Date</th>
+                <th>telephone</th>
+                <th>street Address</th>
+                <th>city</th>
+                <th>state</th>
+                <th>zip</th>
+                <th>card number</th>
+                <th>security code</th>
+                <th></th>
+                <th></th>
+            </tr>
+    <tbody>
+    {% for item in customers %}
+    <tr>
+        <td>{{item['customerID']}}</td>
+        <td>{{item['userName']}}</td>
+        <td>{{item['password']}}</td>
+        <td>{{item['fName']}}</td>
+        <td>{{item['lName']}}</td>
+        <td>{{item['birthDate']}}</td>
+        <td>{{item['telephone']}}</td>
+        <td>{{item['streetAddress']}}</td>
+        <td>{{item['city']}}</td>
+        <td>{{item['state']}}</td>
+        <td>{{item['zip']}}</td>
+        <td>{{item['cardNum']}}</td>
+        <td>{{item['securityCode']}}</td>
+        <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+<div id="insert">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="CustomerForm" action="/customers" method="POST">
+			<legend><strong>Add Customer</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="userName">Username:</label>
+				<input type="text" class="form-control" id="userName" name="userName" placeholder="" required>
+
+				<label for="password">Password:</label>
+				<input type="text" class="form-control" id="password" name="password"  placeholder="" required>
+
+				<label for="fName">First Name:</label>
+				<input type="text" class="form-control" id="fName" name="fName" placeholder="" required>
+
+                <label for="lName">Last Name:</label>
+				<input type="text" class="form-control" id="lName" name="lName" placeholder="" required>
+
+                <label for="birthDate">birthDate:</label>
+				<input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
+
+                <label for="telephone">telephone:</label>
+				<input type="tele" class="form-control" id="telephone" name="telephone" placeholder="" required>
+
+				<label for="streetAddress">street Address:</label>
+				<input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
+
+                <label for="city">city:</label>
+				<input type="text" class="form-control" id="city" name="city" placeholder="" required>
+
+                <label for="state">state:</label>
+				<input type="text" class="form-control" id="state" name="state" placeholder="" required>
+
+                <label for="zip">zip:</label>
+				<input type="number" class="form-control" id="zip" name="zip" placeholder="" required>
+
+                <label for="cardNum">card Number:</label>
+				<input type="number" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
+
+                <label for="securityCode">security Code:</label>
+				<input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="" required>
+                
+            </fieldset>
+
+            <!-- Create 'Add Person' and 'Cancel' buttons -->
+			<input type="submit" value="Add customer" name="Add_Customer" class="btn btn-primary" form="CustomerForm" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseCustomers()"> 
+        </form>
+	</div><!--insert-->
+
+    

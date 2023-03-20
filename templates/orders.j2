@@ -1,0 +1,118 @@
+<html>
+<head>
+    <title>Orders</title>
+</head>
+
+<body onload="browseOrders()">
+    <h1>WineSeller</h1>
+    <h3>E-Commerce Wine Distributor</h3>
+    <p></p>
+
+    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
+    <div id = "order_table">
+        <table border="1" cellpadding="3">
+            <tr>
+                <th>Date Purchased</th>
+                <th>Customer ID</th>
+                <th>Order ID</th>
+                <th>Product ID</th>
+                <th>Product Title</th>
+                <th>quantity Ordered</th>
+                <th>Total Price</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+    <tbody>
+    {% for item in orders %}
+    <tr>
+        <td>{{item['datePurchased']}}</td>
+        <td>{{item['customerID']}}</td>
+        <td>{{item['orderID']}}</td>
+        <td>{{item['productID']}}</td>
+        <td>{{item['title']}}</td>
+        <td>{{item['quantity_ordered']}}</td>
+        <td>{{item['total_price']}}</td>
+        <td><a href="edit_order/{{item['orderID']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+        <td><a href="delete_order/{{item['orderID']}}" class="btn btn-default">Delete entire order</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+<div id="insertOrder">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="OrderForm" action="/orders" method="POST">
+			<legend><strong>Add Order</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="datePurchased">Date Purchased:</label>
+				<input type="date" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
+				
+                <label for="customerID">Customer:</label>
+                <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
+                        <!-- Access our homeworld tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for customer in customers %}
+                                
+                        
+                            <option value="{{ customer['customerID'] }}"> {{customer['customerID']}}  </option> 
+    
+
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+            </fieldset>
+
+            <!-- Create 'Add Person' and 'Cancel' buttons -->
+			<input type="submit" value="Add Order" name="Add_Order" class="btn btn-primary" form="OrderForm" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
+        </form>
+	</div><!--insert-->
+
+<div id="insertProductOrder">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="OrderProductForm" action="/orders" method="POST">
+			<legend><strong>Add Product to Order</strong></legend>
+			<fieldset>
+
+                <label for="orderID">order:</label>
+                    <select class="form-control" id="orderID" name="orderID" pattern="{1}" placeholder="" required> 
+                            <!-- Access our homeworld tuple passed from app.py-->
+                            <option value="0">&nbsp;</option>
+                            {% for order in bulkorders %}
+                                   
+                                <option value="{{ order['orderID'] }}"> {{order['orderID']}}  </option> 
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>
+                <label for="productID">Product:</label>
+                <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required> 
+                        <!-- Access our homeworld tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for product in products %}
+                                
+                                
+                            <option value="{{ product['productID'] }}"> {{product['title']}}</option> 
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                </select>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="quantity">quantity:</label>
+				<input type="number" class="form-control" id="quantity" name="quantity" placeholder="" required>
+				
+                
+            </fieldset>
+
+            <!-- Create 'Add Person' and 'Cancel' buttons -->
+			<input type="submit" value="Add Product Order" name="Add_Product_Order" class="btn btn-primary" form="OrderProductForm" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
+        </form>
+	</div><!--insert-->
+
+
+
+    

@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Vineyards</title>
+</head>
+
+<body onload="browseVineyards()">
+    <h1>WineSeller</h1>
+    <h3>E-Commerce Wine Distributor</h3>
+    <p></p>
+
+    [ <a href="/customers">Customers</a> |<a href="/products">Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
+    <div id = "vineyard_table">
+        <table border="1" cellpadding="3">
+            <tr>
+                <th>ID</th>
+                <th>title</th>
+                <th>Description</th>
+                <th>cases Yearly</th>
+                <th>Year Founded</th>
+                <th>website</th>
+                <th></th>
+                <th></th>
+            </tr>
+    <tbody>
+    {% for item in vineyards %}
+    <tr>
+        <td>{{item['vineyardID']}}</td>
+        <td>{{item['title']}}</td>
+        <td>{{item['description']}}</td>
+        <td>{{item['casesYearly']}}</td>
+        <td>{{item['yearFounded']}}</td>
+        <td>{{item['website']}}</td>
+        <td><a href="edit_vineyard/{{item['vineyardID']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="delete_vineyard/{{item['vineyardID']}}" class="btn btn-default">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+<div id="insert">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="vineyardForm" action="/vineyards" method="POST">
+			<legend><strong>Add Vineyard</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="title">Vineyard Title:</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="" required>
+
+				<label for="description">Description:</label>
+				<input type="text" class="form-control" id="description" name="description"  placeholder="">
+
+				<label for="casesYearly">Cases Yearly:</label>
+				<input type="number" class="form-control" id="casesYearly" name="casesYearly" placeholder="" >
+
+                <label for="yearFounded">Year Founded:</label>
+				<input type="number" class="form-control" id="yearFounded" name="yearFounded" placeholder="" >
+
+                <label for="website">website:</label>
+				<input type="url" class="form-control" id="website" name="website" placeholder="" >
+				
+                
+            </fieldset>
+
+            <!-- Create 'Add Person' and 'Cancel' buttons -->
+			<input type="submit" value="Add Vineyard" name="Add_vineyard" class="btn btn-primary" form="vineyardForm" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseVineyards()"> 
+        </form>
+	</div><!--insert-->
+
+    

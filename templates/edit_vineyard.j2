@@ -1,0 +1,50 @@
+<html>
+
+<head>
+	<title>Edit Vineyard</title>
+</head>
+
+<body>
+    <div>
+        
+            <caption> Editing Vineyard: </caption>
+    
+    <div id="edit">
+            <!-- form to edit data in bsg_people-->
+            <form id="editVineyard" action="/edit_vineyard/{{vineyard[0].vineyardID}}" method="post">
+                <legend><strong>Edit Product</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of person to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{vineyard[0].vineyardID}}" class="form-control" id="vineyardID" name="vineyardID" required>
+                    
+
+                    <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				    <label for="title">Vineyard Title:</label>
+                    <input type="text" value="{{vineyard[0].title}}" class="form-control" id="title" name="title" placeholder="" required>
+
+                    <label for="description">Description:</label>
+                    <input type="text" value="{{vineyard[0].description}}" class="form-control" id="description" name="description"  placeholder="">
+
+                    <label for="casesYearly">Cases Yearly:</label>
+                    <input type="number" value="{{vineyard[0].casesYearly}}" class="form-control" id="casesYearly" name="casesYearly" placeholder="" >
+
+                    <label for="yearFounded">Year Founded:</label>
+                    <input type="number" value="{{vineyard[0].yearFounded}}" class="form-control" id="yearFounded" name="yearFounded" placeholder="" >
+
+                    <label for="website">website:</label>
+                    <input type="url" value="{{vineyard[0].website}}" class="form-control" id="website" name="website" placeholder="" >
+                    
+                    
+                </fieldset>
+
+
+                    
+                        
+                
+                </fieldset>
+                <input type="submit" value="Edit vineyard" name="edit_vineyard" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/vineyards'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

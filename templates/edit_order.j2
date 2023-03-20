@@ -1,0 +1,64 @@
+<html>
+
+<head>
+	<title>Edit Order</title>
+</head>
+
+<body>
+    <div>
+        <caption> Editing Order: </caption>
+    
+
+
+    <div id="edit">
+    
+            <!-- form to edit data in bsg_people-->
+            <form id="editOrder" action="/edit_order/{{order[0].orderID}}" method="post">
+            <legend><strong>Edit Order</strong></legend>
+            <fieldset>
+
+            <input type="hidden" value="{{order[0].orderID}}" class="form-control" id="orderID" name="orderID" required>
+
+            <label for="datePurchased">Date Purchased:</label>
+			<input type="date" value="{{order[0].datePurchased}}" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
+
+            <label for="customerID">Customer:</label>
+            <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
+                    
+            <option value="0">&nbsp;</option>
+            {% for customer in customers %}
+
+                {% if  customer['customerID']  == order[0].customerID %}
+                    <option value="{{ customer['customerID'] }}" selected> {{customer['customerID']}}</option>
+                {% else %}
+                    <option value="{{ customer['customerID'] }}"> {{customer['customerID']}}</option> 
+                {% endif %}
+
+            {% endfor %} 
+            </select>	 
+
+            <label for="productID">product:</label>
+            <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required> 
+                    
+            <option value="0">&nbsp;</option>
+            {% for product in products %}
+
+                {% if  product['productID']  == orderproducts[0].productID %}
+                    <option value="{{ product['productID'] }}" selected> {{product['productID']}}</option>
+                {% else %}
+                    <option value="{{ product['productID'] }}"> {{product['productID']}}</option> 
+                {% endif %}
+
+            {% endfor %} 
+            </select>	 
+
+            <label for="quantity">quantity Purchased:</label>
+			<input type="number" value="{{orderproducts[0].quantity}}" class="form-control" id="quantity" name="quantity" placeholder="" required>
+        
+                
+                </fieldset>
+                <input type="submit" value="Edit order" name="edit_order" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/orders'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

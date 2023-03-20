@@ -1,0 +1,87 @@
+<html>
+
+<head>
+	<title>Edit Customer</title>
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Customer: </caption>
+
+            {% for item in customer %}
+            <tr>
+                <td>{{item['customerID']}}</td>
+                <td>{{item['userName']}}</td>
+                <td>{{item['password']}}</td>
+                <td>{{item['fName']}}</td>
+                <td>{{item['lName']}}</td>
+                <td>{{item['birthDate']}}</td>
+                <td>{{item['telephone']}}</td>
+                <td>{{item['streetAddress']}}</td>
+                <td>{{item['city']}}</td>
+                <td>{{item['state']}}</td>
+                <td>{{item['zip']}}</td>
+                <td>{{item['cardNum']}}</td>
+                <td>{{item['securityCode']}}</td>
+                <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
+                <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+    
+    <div id="edit">
+            <!-- form to edit data in bsg_people-->
+            <form id="editCustomer" action="/edit_customer/{{customer[0].customerID}}" method="post">
+                <legend><strong>Edit Customer</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of person to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{customer[0].customerID}}" class="form-control" id="customerID" name="customerID" required>
+                    
+                    <label for="userName">Username:</label>
+				    <input type="text" value="{{customer[0].userName}}" class="form-control" id="userName" name="userName" placeholder="" required>
+
+                    <label for="password">Password:</label>
+                    <input type="text" value="{{customer[0].password}}" class="form-control" id="password" name="password"  placeholder="" required>
+
+                    <label for="fName">First Name:</label>
+                    <input type="text" value="{{customer[0].fName}}" class="form-control" id="fName" name="fName" placeholder="" required>
+
+                    <label for="lName">Last Name:</label>
+                    <input type="text" value="{{customer[0].lName}}" class="form-control" id="lName" name="lName" placeholder="" required>
+
+                    <label for="birthDate">birthDate:</label>
+                    <input type="date" value="{{customer[0].birthDate}}" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
+
+                    <label for="telephone">telephone:</label>
+                    <input type="tele" value="{{customer[0].telephone}}" class="form-control" id="telephone" name="telephone" placeholder="" required>
+
+                    <label for="streetAddress">street Address:</label>
+                    <input type="text" value="{{customer[0].streetAddress}}" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
+
+                    <label for="city">city:</label>
+                    <input type="text" value="{{customer[0].city}}" class="form-control" id="city" name="city" placeholder="" required>
+
+                    <label for="state">state:</label>
+                    <input type="text" value="{{customer[0].state}}" class="form-control" id="state" name="state" placeholder="" required>
+
+                    <label for="zip">zip:</label>
+                    <input type="number" value="{{customer[0].zip}}" class="form-control" id="zip" name="zip" placeholder="" required>
+
+                    <label for="cardNum">card Number:</label>
+                    <input type="number" value="{{customer[0].cardNum}}" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
+
+                    <label for="securityCode">security Code:</label>
+                    <input type="number" value="{{customer[0].securityCode}}" class="form-control" id="securityCode" name="securityCode" placeholder="" required>
+                    
+                    
+                    </select>	 
+                </fieldset>
+
+                </fieldset>
+                <input type="submit" value="Edit customer" name="edit_customer" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/customers'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>

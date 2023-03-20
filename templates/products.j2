@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Products</title>
+</head>
+
+<body onload="browseProducts()">
+    <h1>WineSeller</h1>
+    <h3>E-Commerce Wine Distributor</h3>
+    <p></p>
+
+    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
+    <div id = "product_table">
+        <table border="1" cellpadding="3">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Vineyard ID</th>
+                <th></th>
+                <th></th>
+            </tr>
+    <tbody>
+    {% for item in products %}
+    <tr>
+        <td>{{item['productID']}}</td>
+        <td>{{item['title']}}</td>
+        <td>{{item['description']}}</td>
+        <td>{{item['retailPrice']}}</td>
+        <td>{{item['vineyardID']}}</td>
+        <td><a href="edit_product/{{item['productID']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="delete_product/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+<div id="insert">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="ProductForm" action="/products" method="POST">
+			<legend><strong>Add Product</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="title">Product Title:</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="" required>
+
+				<label for="description">Description:</label>
+				<input type="text" class="form-control" id="description" name="description"  placeholder="">
+
+				<label for="retailPrice">Price:</label>
+				<input type="number" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="" required>
+				
+                <label for="vineyardID">Vineyard:</label>
+                <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
+                        <!-- Access our homeworld tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for vineyard in vineyards %}
+                                
+                                
+                            <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+    
+
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+            </fieldset>
+
+            <!-- Create 'Add Person' and 'Cancel' buttons -->
+			<input type="submit" value="Add Product" name="Add_Product" class="btn btn-primary" form="ProductForm" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseProducts()"> 
+        </form>
+	</div><!--insert-->
+
+    
