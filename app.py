@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 app.config['MYSQL_USER'] = 'cs340_pierreh'
-app.config['MYSQL_PASSWORD'] = '6818' #last 4 of onid
+app.config['MYSQL_PASSWORD'] = '6818' 
 app.config['MYSQL_DB'] = 'cs340_pierreh'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
@@ -54,6 +54,9 @@ def customer():
             cardNum = request.form["cardNum"]
             securityCode = request.form["securityCode"]
 
+            #values acquired from form
+            customerValues = (fName,lName,userName,password,birthDate,streetAddress,city,state,zip,telephone,cardNum,securityCode)
+
             # query with placeholder values
             query = "INSERT INTO Customers (\
                         fName,\
@@ -70,9 +73,6 @@ def customer():
                         securityCode\
                     )\
                     Values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            
-            #values acquired from form
-            customerValues = (fName,lName,userName,password,birthDate,streetAddress,city,state,zip,telephone,cardNum,securityCode)
             
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -145,6 +145,9 @@ def edit_customer(id):
             cardNum = request.form["cardNum"]
             securityCode = request.form["securityCode"]
 
+            #values acquired from form
+            customerValues = (fName,lName,userName,password,birthDate,streetAddress,city,state,zip,telephone,cardNum,securityCode,customerID)
+
             # query with placeholder values
             query = "UPDATE Customers SET \
                         fName = %s,\
@@ -160,9 +163,6 @@ def edit_customer(id):
                         cardNum = %s,\
                         securityCode = %s\
                     WHERE customerID = %s"
-            
-            #values acquired from form
-            customerValues = (fName,lName,userName,password,birthDate,streetAddress,city,state,zip,telephone,cardNum,securityCode,customerID)
             
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -187,11 +187,11 @@ def product():
             retailPrice = request.form["retailPrice"]
             vineyardID = request.form["vineyardID"]
 
-            # query with placeholder values
-            query = "INSERT INTO Products (title, description, retailPrice, vineyardID) VALUES (%s, %s, %s, %s)"
-
             #values acquired from form
             productValues = (title, description, retailPrice, vineyardID)
+
+            # query with placeholder values
+            query = "INSERT INTO Products (title, description, retailPrice, vineyardID) VALUES (%s, %s, %s, %s)"
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -274,11 +274,11 @@ def edit_product(id):
             retailPrice = request.form["retailPrice"]
             vineyardID = request.form["vineyardID"]
 
-            # query with placeholder values
-            query = "UPDATE Products SET title =%s, description =%s, retailPrice = %s,vineyardID = %s WHERE productID = %s"
-
             #values acquired from form
             productValues = (title, description, retailPrice, vineyardID, productID)
+
+            # query with placeholder values
+            query = "UPDATE Products SET title =%s, description =%s, retailPrice = %s,vineyardID = %s WHERE productID = %s"
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -303,12 +303,12 @@ def vineyard():
             casesYearly = request.form["casesYearly"]
             yearFounded = request.form["yearFounded"]
             website = request.form["website"] 
-            
-            # query with placeholder values
-            query = "INSERT INTO Vineyards (title, description, casesYearly, yearFounded, website) VALUES (%s, %s, %s, %s, %s)"
 
             #values acquired from form
             vineyardValues = (title, description, casesYearly, yearFounded, website)
+            
+            # query with placeholder values
+            query = "INSERT INTO Vineyards (title, description, casesYearly, yearFounded, website) VALUES (%s, %s, %s, %s, %s)"
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -375,11 +375,11 @@ def edit_vineyard(id):
             yearFounded = request.form["yearFounded"]
             website = request.form["website"]
 
-            # query with placeholder values
-            query = "UPDATE Vineyards SET title =%s, description =%s, casesYearly = %s,yearFounded = %s,website = %s WHERE vineyardID = %s"
-            
             #values acquired from form
             vineyardValues = (title, description, casesYearly, yearFounded, website, vineyardID)
+
+            # query with placeholder values
+            query = "UPDATE Vineyards SET title =%s, description =%s, casesYearly = %s,yearFounded = %s,website = %s WHERE vineyardID = %s"
             
             cur = mysql.connection.cursor()
             cur.execute(query, vineyardValues)
@@ -423,12 +423,12 @@ def Orders():
             orderID = request.form["orderID"]
             productID = request.form["productID"]
             quantity = request.form["quantity"]
-            
-            # query with placeholder values
-            query = "INSERT INTO OrderProducts (orderID, productID, quantity) VALUES (%s, %s, %s)"
 
             #values acquired from form
             orderProductValues = (orderID, productID, quantity)
+            
+            # query with placeholder values
+            query = "INSERT INTO OrderProducts (orderID, productID, quantity) VALUES (%s, %s, %s)"
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -555,12 +555,15 @@ def edit_order(id):
             productID = request.form["productID"]
             quantity = request.form["quantity"]
 
+            #values acquired from form
+            #OrderProducts
+            orderProductValues = (productID, quantity, orderID, productID)
+            #Orders
+            orderValues = (datePurchased, customerID, orderID, customerID)
+
             #update OrderProducts first
             # query with placeholder values
             query = "UPDATE OrderProducts SET productID = %s, quantity = %s WHERE orderID = %s AND productID = %s;"
-
-            #values acquired from form
-            orderProductValues = (productID, quantity, orderID, productID)
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
@@ -570,9 +573,6 @@ def edit_order(id):
             #now update Orders
             # query with placeholder values
             query1 = "UPDATE Orders SET datePurchased = %s, customerID = %s WHERE orderID = %s AND customerID = %s;"
-
-            #values acquired from form
-            orderValues = (datePurchased, customerID, orderID, customerID)
 
             #execute query with values acquired from form
             cur = mysql.connection.cursor()
