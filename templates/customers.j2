@@ -1,10 +1,14 @@
 <html>
 
+<!-- boilerplate-->
 {% include 'main.j2' %}
+
 <head>
     <title>Customers</title>
     <h3>Customers</h3>
 </head>
+
+<!-- display Customers table-->
 <body onload="browseCustomers()">
     <div id = "customer_table">
         <table border="2" cellpadding="3">
@@ -27,79 +31,93 @@
             </tr>
     <tbody>
     {% for item in customers %}
-    <tr>
-        <td>{{item['customerID']}}</td>
-        <td>{{item['userName']}}</td>
-        <td>{{item['password']}}</td>
-        <td>{{item['fName']}}</td>
-        <td>{{item['lName']}}</td>
-        <td>{{item['birthDate']}}</td>
-        <td>{{item['telephone']}}</td>
-        <td>{{item['streetAddress']}}</td>
-        <td>{{item['city']}}</td>
-        <td>{{item['state']}}</td>
-        <td>{{item['zip']}}</td>
-        <td>{{item['cardNum']}}</td>
-        <td>{{item['securityCode']}}</td>
-        <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
-    </tr>
+        <tr>
+            <td>{{item['customerID']}}</td>
+            <td>{{item['userName']}}</td>
+            <td>{{item['password']}}</td>
+            <td>{{item['fName']}}</td>
+            <td>{{item['lName']}}</td>
+            <td>{{item['birthDate']}}</td>
+            <td>{{item['telephone']}}</td>
+            <td>{{item['streetAddress']}}</td>
+            <td>{{item['city']}}</td>
+            <td>{{item['state']}}</td>
+            <td>{{item['zip']}}</td>
+            <td>{{item['cardNum']}}</td>
+            <td>{{item['securityCode']}}</td>
+            <!-- edit -->
+            <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
+            <!-- delete -->
+            <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
+        </tr>
     {% endfor %}
     </table>
 <p></p>
 <hr>
 <p></p>
 
-
+<!-- display customer insert form-->
 <div id="insert">
-		<!-- form to INSERT new data into bsg_people-->
+		
 		<form id="CustomerForm" action="/customers" method="POST">
 			<legend><strong>Add Customer</strong></legend>
             
 			<fieldset>
-                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+                <!-- username input -->
 				<label for="userName">Username:</label>
 				<input type="text" class="form-control" id="userName" name="userName" placeholder="" required>
 
+                <!-- password input -->
 				<label for="password">Password:</label>
 				<input type="text" class="form-control" id="password" name="password"  placeholder="" required>
-
+                
+                <!-- first Name input -->
 				<label for="fName">First Name:</label>
 				<input type="text" class="form-control" id="fName" name="fName" placeholder="" required>
-
+                
+                <!-- last Name input -->
                 <label for="lName">Last Name:</label>
 				<input type="text" class="form-control" id="lName" name="lName" placeholder="" required>
-
+                
+                <!-- birth Date input -->
                 <label for="birthDate">birthDate:</label>
 				<input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
 
+                <!-- telephone input -->
                 <label for="telephone">telephone:</label>
 				<input type="tele" class="form-control" id="telephone" name="telephone" placeholder="123-456-7890" required>
 
+                <!-- streetAddress input -->
 				<label for="streetAddress">street Address:</label>
 				<input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
 
+                <!-- city input -->
                 <label for="city">city:</label>
 				<input type="text" class="form-control" id="city" name="city" placeholder="" required>
 
+                <!-- state input -->
                 <label for="state">state:</label>
 				<input type="text" class="form-control" id="state" name="state" placeholder="" required>
 
+                <!-- zip input -->
                 <label for="zip">zip:</label>
 				<input type="number" class="form-control" id="zip" name="zip" placeholder="12345" required>
 
+                <!-- cardNum input -->
                 <label for="cardNum">card Number:</label>
 				<input type="number" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
 
+                <!-- securityCode input -->
                 <label for="securityCode">security Code:</label>
 				<input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="123" required>
                 
             </fieldset>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
+            <!-- submit -->
 			<input type="submit" value="Add customer" name="Add_Customer" class="btn btn-primary" form="CustomerForm" style="margin:.5rem;">
-			<input class="btn" type="button" value="Cancel" onClick="browseCustomers()"> 
+			<!-- cancel -->
+            <input class="btn" type="button" value="Cancel" onClick="browseCustomers()"> 
         </form>
-	</div><!--insert-->
+	</div>
 
     

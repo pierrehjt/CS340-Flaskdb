@@ -1,54 +1,48 @@
 <html>
 
-<head>
-	<title>Edit Product</title>
-</head>
+<!-- boilerplate -->
+{% include 'main.j2' %}
 
-<body>
-    <div>
-        <caption> Editing Product: </caption>
-    
+    <p></p>
+    <!-- form to edit the data-->
     <div id="edit">
-            <!-- form to edit data in bsg_people-->
+
             <form id="editProduct" action="/edit_product/{{product[0].productID}}" method="post">
-                <legend><strong>Edit Product</strong></legend>
+                <legend><strong>Editing Product</strong></legend>
                 <fieldset>
-                    <!-- We can preset form inputs to match attributes currently stored for 'id' of person to be updated via value= and accessing our passed data tuple -->
-                    <!-- Create hidden form input to store the passed 'id' of the person we are editing so we can access it easily in our 'POST' method in our app.py -->
+
+                    <!-- hidden id for sql query-->
                     <input type="hidden" value="{{product[0].productID}}" class="form-control" id="productID" name="productID" required>
                     
-
-                    <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+                    <!-- title edit field-->
 				    <label for="title">Product Title:</label>
-				    <input type="text" value="{{product[0].title}}" class="form-control" id="title" name="title" placeholder="" required>
+				    <input type="text" value="{{product[0].title}}" class="form-control" id="title" name="title" placeholder="{{product[0].title}}" required>
 
+                    <!-- description edit field-->
 				    <label for="description">Description:</label>
-				    <input type="text" value="{{product[0].description}}" class="form-control" id="description" name="description"  placeholder="">
+				    <input type="text" value="{{product[0].description}}" class="form-control" id="description" name="description"  placeholder="{{product[0].description}}">
 
+                    <!-- retailPrice edit field-->
 				    <label for="retailPrice">Price:</label>
-				    <input type="number" value="{{product[0].retailPrice}}" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="" required>
+				    <input type="number" value="{{product[0].retailPrice}}" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="{{product[0].retailPrice}}" required>
                     
+                    <!-- vineyardID dropdown selection-->
                     <label for="vineyardID">Vineyard:</label>
                     <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
-                        <!-- Access our homeworld tuple passed from app.py-->
                         <option value="0">&nbsp;</option>
                         {% for vineyard in vineyards %}
-                                <!-- If the value iterated homeworld matches the value of the homeworld of person currently Editing, pre-select that option -->
-                                {% if  vineyard['vineyardID']  == product[0].vineyardID %}
-                                    <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['title']}}</option>
-                                {% else %}
-                                    <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
-                                {% endif %}
 
+                            {% if  vineyard['vineyardID']  == product[0].vineyardID %}
+                                <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['title']}}</option>
+                            {% else %}
+                                <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+                            {% endif %}
 
-                        <!-- End of this for loop -->
                         {% endfor %} 
                     </select>	 
                 </fieldset>
 
-
-                    
-                        
+ 
                 
                 </fieldset>
                 <input type="submit" value="Edit product" name="edit_product" class="btn btn-primary" style="margin:.5rem;">

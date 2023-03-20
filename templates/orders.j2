@@ -1,11 +1,14 @@
 <html>
 
+<!-- boilerplate-->
 {% include 'main.j2' %}
+
 <head>
     <title>Orders</title>
     <h3>Orders</h3>
 </head>
 
+<!-- display Orders table-->
 <body onload="browseOrders()">
     <div id = "order_table">
         <table border="2" cellpadding="3">
@@ -32,7 +35,9 @@
         <td>{{item['quantity_ordered']}}</td>
         <td>{{item['total_price']}}</td>
         <td><a href="edit_order/{{item['orderID']}}" class="btn btn-default">Edit</a></td>
+        <!-- deletes this specific item purchase from the order -->
         <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+        <!-- deletes the entire order with all associated item purchases -->
         <td><a href="delete_order/{{item['orderID']}}" class="btn btn-default">Delete entire order</a></td>
     </tr>
     {% endfor %}
@@ -41,18 +46,20 @@
 <hr>
 <p></p>
 
+<!-- display order insert form-->
 <div id="insertOrder">
-		<!-- form to INSERT new data into bsg_people-->
+		
 		<form id="OrderForm" action="/orders" method="POST">
 			<legend><strong>Add Order</strong></legend>
 			<fieldset>
-                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+                <!-- date input -->
 				<label for="datePurchased">Date Purchased:</label>
 				<input type="date" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
-				
+
+				<!-- display list of customerIDs -->
                 <label for="customerID">Customer:</label>
                 <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
-                        <!-- Access our homeworld tuple passed from app.py-->
+                        
                         <option value="0">&nbsp;</option>
                         {% for customer in customers %}
                                 
@@ -61,60 +68,65 @@
     
 
 
-                        <!-- End of this for loop -->
+                       
                         {% endfor %} 
             </fieldset>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
+            
 			<input type="submit" value="Add Order" name="Add_Order" class="btn btn-primary" form="OrderForm" style="margin:.5rem;">
 			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
         </form>
-	</div><!--insert-->
+	</div>
 
 <hr>
 <p></p>
 
+<!-- display order product insert form-->
+<!-- ie. add products to an order -->
 <div id="insertProductOrder">
-		<!-- form to INSERT new data into bsg_people-->
+		
 		<form id="OrderProductForm" action="/orders" method="POST">
 			<legend><strong>Add Product to Order</strong></legend>
 			<fieldset>
-
+                <!-- display list of orders -->
                 <label for="orderID">order:</label>
-                    <select class="form-control" id="orderID" name="orderID" pattern="{1}" placeholder="" required> 
-                            <!-- Access our homeworld tuple passed from app.py-->
-                            <option value="0">&nbsp;</option>
-                            {% for order in bulkorders %}
-                                   
-                                <option value="{{ order['orderID'] }}"> {{order['orderID']}}  </option> 
+                <select class="form-control" id="orderID" name="orderID" pattern="{1}" placeholder="" required> 
+                        
+                        <option value="0">&nbsp;</option>
+                        {% for order in bulkorders %}
+                                
+                            <option value="{{ order['orderID'] }}"> {{order['orderID']}}  </option> 
 
-                        <!-- End of this for loop -->
-                        {% endfor %} 
-                    </select>
+                    
+                    {% endfor %} 
+                </select>
+
+                <!-- display list of products -->
                 <label for="productID">Product:</label>
                 <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required> 
-                        <!-- Access our homeworld tuple passed from app.py-->
+                        
                         <option value="0">&nbsp;</option>
                         {% for product in products %}
                                 
                                 
                             <option value="{{ product['productID'] }}"> {{product['title']}}</option> 
 
-                        <!-- End of this for loop -->
+                        
                         {% endfor %} 
                 </select>
-                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+                
+                <!-- display quantity input -->
 				<label for="quantity">quantity:</label>
 				<input type="number" class="form-control" id="quantity" name="quantity" placeholder="" required>
 				
                 
             </fieldset>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
+            
 			<input type="submit" value="Add Product Order" name="Add_Product_Order" class="btn btn-primary" form="OrderProductForm" style="margin:.5rem;">
 			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
         </form>
-	</div><!--insert-->
+	</div>
 
 
 

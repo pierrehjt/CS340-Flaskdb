@@ -1,11 +1,13 @@
 <html>
 
+<!-- boilerplate-->
 {% include 'main.j2' %}
 <head>
     <title>Products</title>
     <h3>Products</h3>
 </head>
 
+<!-- display Products table-->
 <body onload="browseProducts()">
     <div id = "product_table">
         <table border="2" cellpadding="3">
@@ -36,40 +38,41 @@
 <hr>
 <p></p>
 
+<!-- display Product insert form-->
 <div id="insert">
-		<!-- form to INSERT new data into bsg_people-->
+		
 		<form id="ProductForm" action="/products" method="POST">
 			<legend><strong>Add Product</strong></legend>
 			<fieldset>
-                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+                
+                <!-- title input -->
 				<label for="title">Product Title:</label>
 				<input type="text" class="form-control" id="title" name="title" placeholder="" required>
 
+                <!-- description input -->
 				<label for="description">Description:</label>
 				<input type="text" class="form-control" id="description" name="description"  placeholder="">
 
+                <!-- retailPrice input -->
 				<label for="retailPrice">Price:</label>
 				<input type="number" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="1.23" required>
 				
+                <!-- vineyardID dropdown selection -->
                 <label for="vineyardID">Vineyard:</label>
                 <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
-                        <!-- Access our homeworld tuple passed from app.py-->
-                        <option value="0">&nbsp;</option>
-                        {% for vineyard in vineyards %}
-                                
-                                
-                            <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
-    
+                <option value="0">&nbsp;</option>
+                {% for vineyard in vineyards %}    
+                        
+                    <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
 
+                {% endfor %} 
 
-                        <!-- End of this for loop -->
-                        {% endfor %} 
             </fieldset>
 
-            <!-- Create 'Add Person' and 'Cancel' buttons -->
+            
 			<input type="submit" value="Add Product" name="Add_Product" class="btn btn-primary" form="ProductForm" style="margin:.5rem;">
 			<input class="btn" type="button" value="Cancel" onClick="browseProducts()"> 
         </form>
-	</div><!--insert-->
+	</div>
 
     
