@@ -1,123 +1,130 @@
 <html>
 
-<!-- boilerplate-->
-{% include 'main.j2' %}
+    <!-- boilerplate-->
+    {% include 'main.j2' %}
 
-<head>
-    <title>Customers</title>
-    <h3>Customers</h3>
-</head>
+    <head>
+        <title>Customers</title>
+        <h3>Customers</h3>
+    </head>
 
-<!-- display Customers table-->
-<body onload="browseCustomers()">
-    <div id = "customer_table">
-        <table border="2" cellpadding="3">
-            <tr>
-                <th>ID</th>
-                <th>username</th>
-                <th>password</th>
-                <th>first Name</th>
-                <th>last Name</th>
-                <th>birth Date</th>
-                <th>telephone</th>
-                <th>street Address</th>
-                <th>city</th>
-                <th>state</th>
-                <th>zip</th>
-                <th>card number</th>
-                <th>security code</th>
-                <th></th>
-                <th></th>
-            </tr>
-    <tbody>
-    {% for item in customers %}
-        <tr>
-            <td>{{item['customerID']}}</td>
-            <td>{{item['userName']}}</td>
-            <td>{{item['password']}}</td>
-            <td>{{item['fName']}}</td>
-            <td>{{item['lName']}}</td>
-            <td>{{item['birthDate']}}</td>
-            <td>{{item['telephone']}}</td>
-            <td>{{item['streetAddress']}}</td>
-            <td>{{item['city']}}</td>
-            <td>{{item['state']}}</td>
-            <td>{{item['zip']}}</td>
-            <td>{{item['cardNum']}}</td>
-            <td>{{item['securityCode']}}</td>
-            <!-- edit -->
-            <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
-            <!-- delete -->
-            <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
-        </tr>
-    {% endfor %}
-    </table>
-<p></p>
-<hr>
-<p></p>
+    <!-- display Customers table-->
+    <body onload="browseCustomers()">
+        <div id = "customer_table">
+            <table border="2" cellpadding="3">
+                <tr>
+                    <th>ID</th>
+                    <th>username</th>
+                    <th>password</th>
+                    <th>first Name</th>
+                    <th>last Name</th>
+                    <th>birth Date</th>
+                    <th>telephone</th>
+                    <th>street Address</th>
+                    <th>city</th>
+                    <th>state</th>
+                    <th>zip</th>
+                    <th>card number</th>
+                    <th>security code</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    {% for item in customers %}
+                        <tr>
+                            <td>{{item['customerID']}}</td>
+                            <td>{{item['userName']}}</td>
+                            <td>{{item['password']}}</td>
+                            <td>{{item['fName']}}</td>
+                            <td>{{item['lName']}}</td>
+                            <td>{{item['birthDate']}}</td>
+                            <td>{{item['telephone']}}</td>
+                            <td>{{item['streetAddress']}}</td>
+                            <td>{{item['city']}}</td>
+                            <td>{{item['state']}}</td>
+                            <td>{{item['zip']}}</td>
+                            <td>{{item['cardNum']}}</td>
+                            <td>{{item['securityCode']}}</td>
+                            <!-- edit -->
+                            <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
+                            <!-- delete -->
+                            <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<!-- display customer insert form-->
-<div id="insert">
-		
-		<form id="CustomerForm" action="/customers" method="POST">
-			<legend><strong>Add Customer</strong></legend>
-            
-			<fieldset>
-                <!-- username input -->
-				<label for="userName">Username:</label>
-				<input type="text" class="form-control" id="userName" name="userName" placeholder="" required>
+        <p></p>
+        <hr>
+        <p></p>
 
-                <!-- password input -->
-				<label for="password">Password:</label>
-				<input type="text" class="form-control" id="password" name="password"  placeholder="" required>
+        <!-- display customer insert form-->
+        <div id="insert">
                 
-                <!-- first Name input -->
-				<label for="fName">First Name:</label>
-				<input type="text" class="form-control" id="fName" name="fName" placeholder="" required>
+            <form id="CustomerForm" action="/customers" method="POST">
+                <legend><strong>Add Customer</strong></legend>
                 
-                <!-- last Name input -->
-                <label for="lName">Last Name:</label>
-				<input type="text" class="form-control" id="lName" name="lName" placeholder="" required>
-                
-                <!-- birth Date input -->
-                <label for="birthDate">birthDate:</label>
-				<input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
+                <fieldset>
+                    <!-- username input -->
+                    <label for="userName">Username:</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="" required>
 
-                <!-- telephone input -->
-                <label for="telephone">telephone:</label>
-				<input type="tele" class="form-control" id="telephone" name="telephone" placeholder="123-456-7890" required>
+                    <!-- password input -->
+                    <label for="password">Password:</label>
+                    <input type="text" class="form-control" id="password" name="password"  placeholder="" required>
+                    
+                    <!-- first Name input -->
+                    <label for="fName">First Name:</label>
+                    <input type="text" class="form-control" id="fName" name="fName" placeholder="" required>
+                    
+                    <!-- last Name input -->
+                    <label for="lName">Last Name:</label>
+                    <input type="text" class="form-control" id="lName" name="lName" placeholder="" required>
+                    
+                    <!-- birth Date input -->
+                    <label for="birthDate">birthDate:</label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
 
-                <!-- streetAddress input -->
-				<label for="streetAddress">street Address:</label>
-				<input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
+                    <!-- telephone input -->
+                    <label for="telephone">telephone:</label>
+                    <input type="tele" class="form-control" id="telephone" name="telephone" placeholder="123-456-7890" required>
 
-                <!-- city input -->
-                <label for="city">city:</label>
-				<input type="text" class="form-control" id="city" name="city" placeholder="" required>
+                    <!-- streetAddress input -->
+                    <label for="streetAddress">street Address:</label>
+                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
 
-                <!-- state input -->
-                <label for="state">state:</label>
-				<input type="text" class="form-control" id="state" name="state" placeholder="" required>
+                    <!-- city input -->
+                    <label for="city">city:</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="" required>
 
-                <!-- zip input -->
-                <label for="zip">zip:</label>
-				<input type="number" class="form-control" id="zip" name="zip" placeholder="12345" required>
+                    <!-- state input -->
+                    <label for="state">state:</label>
+                    <input type="text" class="form-control" id="state" name="state" placeholder="" required>
 
-                <!-- cardNum input -->
-                <label for="cardNum">card Number:</label>
-				<input type="number" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
+                    <!-- zip input -->
+                    <label for="zip">zip:</label>
+                    <input type="number" class="form-control" id="zip" name="zip" placeholder="12345" required>
 
-                <!-- securityCode input -->
-                <label for="securityCode">security Code:</label>
-				<input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="123" required>
-                
-            </fieldset>
+                    <!-- cardNum input -->
+                    <label for="cardNum">card Number:</label>
+                    <input type="number" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
 
-            <!-- submit -->
-			<input type="submit" value="Add customer" name="Add_Customer" class="btn btn-primary" form="CustomerForm" style="margin:.5rem;">
-			<!-- cancel -->
-            <input class="btn" type="button" value="Cancel" onClick="browseCustomers()"> 
-        </form>
-	</div>
+                    <!-- securityCode input -->
+                    <label for="securityCode">security Code:</label>
+                    <input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="123" required>
+                    
+                </fieldset>
+
+                <!-- submit -->
+                <input type="submit" value="Add customer" name="Add_Customer" class="btn btn-primary" form="CustomerForm" style="margin:.5rem;">
+                <!-- cancel -->
+                <input class="btn" type="button" value="Cancel" onClick="browseCustomers()"> 
+
+            </form>
+        </div>
+
+    </body>
+</html>
 
     

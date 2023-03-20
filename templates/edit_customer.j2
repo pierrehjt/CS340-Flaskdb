@@ -1,86 +1,85 @@
 <html>
-<!-- boilerplate -->
-{% include 'main.j2' %}
+    <!-- boilerplate -->
+    {% include 'main.j2' %}
 
     <p></p>
     <!-- form to edit the data-->
     <div id="edit">
             
-            <form id="editCustomer" action="/edit_customer/{{customer[0].customerID}}" method="post">
-                <legend><strong>Editing Customer [{{customer[0].customerID}}]</strong></legend>
+        <form id="editCustomer" action="/edit_customer/{{customer[0].customerID}}" method="post">
+            <legend><strong>Editing Customer [{{customer[0].customerID}}]</strong></legend>
+            <p></p>
+            <fieldset>
+                <!-- hidden id for sql query-->
+                <input type="hidden" value="{{customer[0].customerID}}" class="form-control" id="customerID" name="customerID" required>
+                
+                <!-- userName edit field-->
+                <label for="userName">Username:</label>
+                <input type="text" value="{{customer[0].userName}}" class="form-control" id="userName" name="userName" placeholder="{{customer[0].userName}}" required>
                 <p></p>
-                <fieldset>
-                    <!-- hidden id for sql query-->
-                    <input type="hidden" value="{{customer[0].customerID}}" class="form-control" id="customerID" name="customerID" required>
-                    
-                    <!-- userName edit field-->
-                    <label for="userName">Username:</label>
-				    <input type="text" value="{{customer[0].userName}}" class="form-control" id="userName" name="userName" placeholder="{{customer[0].userName}}" required>
-                    <p></p>
 
-                    <!-- password edit field-->
-                    <label for="password">Password:</label>
-                    <input type="text" value="{{customer[0].password}}" class="form-control" id="password" name="password"  placeholder="{{customer[0].password}}" required>
-                    <p></p>
+                <!-- password edit field-->
+                <label for="password">Password:</label>
+                <input type="text" value="{{customer[0].password}}" class="form-control" id="password" name="password"  placeholder="{{customer[0].password}}" required>
+                <p></p>
 
-                    <!-- fName edit field-->
-                    <label for="fName">First Name:</label>
-                    <input type="text" value="{{customer[0].fName}}" class="form-control" id="fName" name="fName" placeholder="{{customer[0].fName}}" required>
-                    <p></p>
+                <!-- fName edit field-->
+                <label for="fName">First Name:</label>
+                <input type="text" value="{{customer[0].fName}}" class="form-control" id="fName" name="fName" placeholder="{{customer[0].fName}}" required>
+                <p></p>
 
-                    <!-- lName edit field-->
-                    <label for="lName">Last Name:</label>
-                    <input type="text" value="{{customer[0].lName}}" class="form-control" id="lName" name="lName" placeholder="{{customer[0].lName}}" required>
-                    <p></p>
+                <!-- lName edit field-->
+                <label for="lName">Last Name:</label>
+                <input type="text" value="{{customer[0].lName}}" class="form-control" id="lName" name="lName" placeholder="{{customer[0].lName}}" required>
+                <p></p>
 
-                    <!-- birthDate edit field-->
-                    <label for="birthDate">birthDate:</label>
-                    <input type="date" value="{{customer[0].birthDate}}" class="form-control" id="birthDate" name="birthDate" placeholder="{{customer[0].birthDate}}" required>
-                    <p></p>
+                <!-- birthDate edit field-->
+                <label for="birthDate">birthDate:</label>
+                <input type="date" value="{{customer[0].birthDate}}" class="form-control" id="birthDate" name="birthDate" placeholder="{{customer[0].birthDate}}" required>
+                <p></p>
 
-                    <!-- telephone edit field-->
-                    <label for="telephone">telephone:</label>
-                    <input type="tele" value="{{customer[0].telephone}}" class="form-control" id="telephone" name="telephone" placeholder="{{customer[0].telephone}}" required>
-                    <p></p>
+                <!-- telephone edit field-->
+                <label for="telephone">telephone:</label>
+                <input type="tele" value="{{customer[0].telephone}}" class="form-control" id="telephone" name="telephone" placeholder="{{customer[0].telephone}}" required>
+                <p></p>
 
-                    <!-- streetAddress edit field-->
-                    <label for="streetAddress">street Address:</label>
-                    <input type="text" value="{{customer[0].streetAddress}}" class="form-control" id="streetAddress" name="streetAddress" placeholder="{{customer[0].streetAddress}}" required>
-                    <p></p>
+                <!-- streetAddress edit field-->
+                <label for="streetAddress">street Address:</label>
+                <input type="text" value="{{customer[0].streetAddress}}" class="form-control" id="streetAddress" name="streetAddress" placeholder="{{customer[0].streetAddress}}" required>
+                <p></p>
 
-                    <!-- city edit field-->
-                    <label for="city">city:</label>
-                    <input type="text" value="{{customer[0].city}}" class="form-control" id="city" name="city" placeholder="{{customer[0].city}}" required>
-                    <p></p>
+                <!-- city edit field-->
+                <label for="city">city:</label>
+                <input type="text" value="{{customer[0].city}}" class="form-control" id="city" name="city" placeholder="{{customer[0].city}}" required>
+                <p></p>
 
-                    <!-- state edit field-->
-                    <label for="state">state:</label>
-                    <input type="text" value="{{customer[0].state}}" class="form-control" id="state" name="state" placeholder="{{customer[0].state}}" required>
-                    <p></p>
+                <!-- state edit field-->
+                <label for="state">state:</label>
+                <input type="text" value="{{customer[0].state}}" class="form-control" id="state" name="state" placeholder="{{customer[0].state}}" required>
+                <p></p>
 
-                    <!-- zip edit field-->
-                    <label for="zip">zip:</label>
-                    <input type="number" value="{{customer[0].zip}}" class="form-control" id="zip" name="zip" placeholder="{{customer[0].zip}}" required>
-                    <p></p>
+                <!-- zip edit field-->
+                <label for="zip">zip:</label>
+                <input type="number" value="{{customer[0].zip}}" class="form-control" id="zip" name="zip" placeholder="{{customer[0].zip}}" required>
+                <p></p>
 
-                    <!-- cardNum edit field-->
-                    <label for="cardNum">card Number:</label>
-                    <input type="number" value="{{customer[0].cardNum}}" class="form-control" id="cardNum" name="cardNum" placeholder="{{customer[0].cardNum}}" required>
-                    <p></p>
+                <!-- cardNum edit field-->
+                <label for="cardNum">card Number:</label>
+                <input type="number" value="{{customer[0].cardNum}}" class="form-control" id="cardNum" name="cardNum" placeholder="{{customer[0].cardNum}}" required>
+                <p></p>
 
-                    <!-- securityCode edit field-->
-                    <label for="securityCode">security Code:</label>
-                    <input type="number" value="{{customer[0].securityCode}}" class="form-control" id="securityCode" name="securityCode" placeholder="{{customer[0].securityCode}}" required>
-                    
-                    
-                    </select>	 
-                </fieldset>
+                <!-- securityCode edit field-->
+                <label for="securityCode">security Code:</label>
+                <input type="number" value="{{customer[0].securityCode}}" class="form-control" id="securityCode" name="securityCode" placeholder="{{customer[0].securityCode}}" required>
+                
+            </fieldset>
 
-                </fieldset>
-                <!-- submit -->
-                <input type="submit" value="Edit customer" name="edit_customer" class="btn btn-primary" style="margin:.5rem;">
-                <!-- cancel -->
-                <a href='/customers'><input class="btn" type="button" value="cancel"></a>
-            </form>
+            <!-- submit -->
+            <input type="submit" value="Edit customer" name="edit_customer" class="btn btn-primary" style="margin:.5rem;">
+            <!-- cancel -->
+            <a href='/customers'><input class="btn" type="button" value="cancel"></a>
+        </form>
+        
+    </div>
 
 </html>

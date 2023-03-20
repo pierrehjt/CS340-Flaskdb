@@ -1,28 +1,28 @@
 <html>
 
-<!-- boilerplate -->
-{% include 'main.j2' %}
+    <!-- boilerplate -->
+    {% include 'main.j2' %}
 
     <p></p>
     
-        <!-- form to edit the data-->
-        <div id="edit">
-    
-            
-            <form id="editOrder" action="/edit_order/{{order[0].orderID}}" method="post">
-                <legend><strong>Editing Order</strong></legend>
-                <fieldset>
+    <!-- form to edit the data-->
+    <div id="edit">
 
-                    <!-- hidden id for sql query-->
-                    <input type="hidden" value="{{order[0].orderID}}" class="form-control" id="orderID" name="orderID" required>
+        
+        <form id="editOrder" action="/edit_order/{{order[0].orderID}}" method="post">
+            <legend><strong>Editing Order</strong></legend>
+            <fieldset>
 
-                    <!-- date edit field-->
-                    <label for="datePurchased">Date Purchased:</label>
-                    <input type="date" value="{{order[0].datePurchased}}" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
+                <!-- hidden id for sql query-->
+                <input type="hidden" value="{{order[0].orderID}}" class="form-control" id="orderID" name="orderID" required>
 
-                    <!-- customerID select dropdown-->
-                    <label for="customerID">Customer:</label>
-                    <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
+                <!-- date edit field-->
+                <label for="datePurchased">Date Purchased:</label>
+                <input type="date" value="{{order[0].datePurchased}}" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
+
+                <!-- customerID select dropdown-->
+                <label for="customerID">Customer:</label>
+                <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
                     <option value="0">&nbsp;</option>
                     {% for customer in customers %}
 
@@ -34,11 +34,11 @@
                         
 
                     {% endfor %} 
-                    </select>	 
+                </select>	 
 
-                    <!-- productID select dropdown-->
-                    <label for="productID">product:</label>
-                    <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required>                             
+                <!-- productID select dropdown-->
+                <label for="productID">product:</label>
+                <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required>                             
                     <option value="0">&nbsp;</option>
                     {% for product in products %}
 
@@ -49,17 +49,18 @@
                         {% endif %}
 
                     {% endfor %} 
-                    </select>	 
+                </select>	 
 
-                    <!-- quantity edit field-->
-                    <label for="quantity">quantity Purchased:</label>
-                    <input type="number" value="{{orderproducts[0].quantity}}" class="form-control" id="quantity" name="quantity" placeholder="" required>
-                
-                        
-                </fieldset>
+                <!-- quantity edit field-->
+                <label for="quantity">quantity Purchased:</label>
+                <input type="number" value="{{orderproducts[0].quantity}}" class="form-control" id="quantity" name="quantity" placeholder="" required>
+            
+                    
+            </fieldset>
 
-                <input type="submit" value="Edit order" name="edit_order" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/orders'><input class="btn" type="button" value="cancel"></a>
-            </form>
+            <input type="submit" value="Edit order" name="edit_order" class="btn btn-primary" style="margin:.5rem;">
+            <a href='/orders'><input class="btn" type="button" value="cancel"></a>
+        </form>
+    </div>
 
 </html>

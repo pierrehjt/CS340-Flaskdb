@@ -1,133 +1,127 @@
 <html>
 
-<!-- boilerplate-->
-{% include 'main.j2' %}
+    <!-- boilerplate-->
+    {% include 'main.j2' %}
 
-<head>
-    <title>Orders</title>
-    <h3>Orders</h3>
-</head>
+    <head>
+        <title>Orders</title>
+        <h3>Orders</h3>
+    </head>
 
-<!-- display Orders table-->
-<body onload="browseOrders()">
-    <div id = "order_table">
-        <table border="2" cellpadding="3">
-            <tr>
-                <th>Date Purchased</th>
-                <th>Customer ID</th>
-                <th>Order ID</th>
-                <th>Product ID</th>
-                <th>Product Title</th>
-                <th>quantity Ordered</th>
-                <th>Total Price</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-    <tbody>
-    {% for item in orders %}
-    <tr>
-        <td>{{item['datePurchased']}}</td>
-        <td>{{item['customerID']}}</td>
-        <td>{{item['orderID']}}</td>
-        <td>{{item['productID']}}</td>
-        <td>{{item['title']}}</td>
-        <td>{{item['quantity_ordered']}}</td>
-        <td>{{item['total_price']}}</td>
-        <td><a href="edit_order/{{item['orderID']}}" class="btn btn-default">Edit</a></td>
-        <!-- deletes this specific item purchase from the order -->
-        <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
-        <!-- deletes the entire order with all associated item purchases -->
-        <td><a href="delete_order/{{item['orderID']}}" class="btn btn-default">Delete entire order</a></td>
-    </tr>
-    {% endfor %}
-    </table>
-<p></p>
-<hr>
-<p></p>
+    <!-- display Orders table-->
+    <body onload="browseOrders()">
+        <div id = "order_table">
+            <table border="2" cellpadding="3">
+                <tr>
+                    <th>Date Purchased</th>
+                    <th>Customer ID</th>
+                    <th>Order ID</th>
+                    <th>Product ID</th>
+                    <th>Product Title</th>
+                    <th>quantity Ordered</th>
+                    <th>Total Price</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    {% for item in orders %}
+                        <tr>
+                            <td>{{item['datePurchased']}}</td>
+                            <td>{{item['customerID']}}</td>
+                            <td>{{item['orderID']}}</td>
+                            <td>{{item['productID']}}</td>
+                            <td>{{item['title']}}</td>
+                            <td>{{item['quantity_ordered']}}</td>
+                            <td>{{item['total_price']}}</td>
+                            <td><a href="edit_order/{{item['orderID']}}" class="btn btn-default">Edit</a></td>
+                            <!-- deletes this specific item purchase from the order -->
+                            <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+                            <!-- deletes the entire order with all associated item purchases -->
+                            <td><a href="delete_order/{{item['orderID']}}" class="btn btn-default">Delete entire order</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<!-- display order insert form-->
-<div id="insertOrder">
-		
-		<form id="OrderForm" action="/orders" method="POST">
-			<legend><strong>Add Order</strong></legend>
-			<fieldset>
-                <!-- date input -->
-				<label for="datePurchased">Date Purchased:</label>
-				<input type="date" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
+        <p></p>
+        <hr>
+        <p></p>
 
-				<!-- display list of customerIDs -->
-                <label for="customerID">Customer:</label>
-                <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required> 
-                        
-                        <option value="0">&nbsp;</option>
-                        {% for customer in customers %}
-                                
-                        
-                            <option value="{{ customer['customerID'] }}"> {{customer['customerID']}}  </option> 
-    
+        <!-- display order insert form-->
+        <div id="insertOrder">
+                
+            <form id="OrderForm" action="/orders" method="POST">
+                <legend><strong>Add Order</strong></legend>
+                <fieldset>
+                    <!-- date input -->
+                    <label for="datePurchased">Date Purchased:</label>
+                    <input type="date" class="form-control" id="datePurchased" name="datePurchased" placeholder="" required>
 
+                    <!-- display list of customerIDs -->
+                    <label for="customerID">Customer:</label>
+                    <select class="form-control" id="customerID" name="customerID" pattern="{1}" placeholder="" required>    
+                    <option value="0">&nbsp;</option>
+                    {% for customer in customers %}
+                            
+                        <option value="{{ customer['customerID'] }}"> {{customer['customerID']}}  </option> 
 
-                       
-                        {% endfor %} 
-            </fieldset>
+                    {% endfor %} 
 
-            
-			<input type="submit" value="Add Order" name="Add_Order" class="btn btn-primary" form="OrderForm" style="margin:.5rem;">
-			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
-        </form>
-	</div>
+                </fieldset>
 
-<hr>
-<p></p>
+                
+                <input type="submit" value="Add Order" name="Add_Order" class="btn btn-primary" form="OrderForm" style="margin:.5rem;">
+                <input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
+            </form>
+        </div>
 
-<!-- display order product insert form-->
-<!-- ie. add products to an order -->
-<div id="insertProductOrder">
-		
-		<form id="OrderProductForm" action="/orders" method="POST">
-			<legend><strong>Add Product to Order</strong></legend>
-			<fieldset>
-                <!-- display list of orders -->
-                <label for="orderID">order:</label>
-                <select class="form-control" id="orderID" name="orderID" pattern="{1}" placeholder="" required> 
-                        
+        <hr>
+        <p></p>
+
+        <!-- display order product insert form-->
+        <!-- ie. add products to an order -->
+        <div id="insertProductOrder">
+                
+            <form id="OrderProductForm" action="/orders" method="POST">
+                <legend><strong>Add Product to Order</strong></legend>
+                <fieldset>
+                    <!-- display list of orders -->
+                    <label for="orderID">order:</label>
+                    <select class="form-control" id="orderID" name="orderID" pattern="{1}" placeholder="" required>        
                         <option value="0">&nbsp;</option>
                         {% for order in bulkorders %}
-                                
+                                    
                             <option value="{{ order['orderID'] }}"> {{order['orderID']}}  </option> 
-
-                    
-                    {% endfor %} 
-                </select>
-
-                <!-- display list of products -->
-                <label for="productID">Product:</label>
-                <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required> 
-                        
-                        <option value="0">&nbsp;</option>
-                        {% for product in products %}
-                                
-                                
-                            <option value="{{ product['productID'] }}"> {{product['title']}}</option> 
-
                         
                         {% endfor %} 
-                </select>
+                    </select>
+
+                    <!-- display list of products -->
+                    <label for="productID">Product:</label>
+                    <select class="form-control" id="productID" name="productID" pattern="{1}" placeholder="" required>    
+                        <option value="0">&nbsp;</option>
+                        {% for product in products %}       
+                                    
+                            <option value="{{ product['productID'] }}"> {{product['title']}}</option> 
+                            
+                        {% endfor %} 
+                    </select>
+                    
+                    <!-- display quantity input -->
+                    <label for="quantity">quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="" required>
+                    
+                </fieldset>
                 
-                <!-- display quantity input -->
-				<label for="quantity">quantity:</label>
-				<input type="number" class="form-control" id="quantity" name="quantity" placeholder="" required>
-				
-                
-            </fieldset>
+                <input type="submit" value="Add Product Order" name="Add_Product_Order" class="btn btn-primary" form="OrderProductForm" style="margin:.5rem;">
+                <input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
 
-            
-			<input type="submit" value="Add Product Order" name="Add_Product_Order" class="btn btn-primary" form="OrderProductForm" style="margin:.5rem;">
-			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
-        </form>
-	</div>
+            </form>
 
+        </div>
 
-
+    </body>
+</html>
     

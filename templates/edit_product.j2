@@ -7,46 +7,45 @@
     <!-- form to edit the data-->
     <div id="edit">
 
-            <form id="editProduct" action="/edit_product/{{product[0].productID}}" method="post">
-                <legend><strong>Editing Product</strong></legend>
-                <fieldset>
+        <form id="editProduct" action="/edit_product/{{product[0].productID}}" method="post">
+            <legend><strong>Editing Product</strong></legend>
+            <fieldset>
 
-                    <!-- hidden id for sql query-->
-                    <input type="hidden" value="{{product[0].productID}}" class="form-control" id="productID" name="productID" required>
-                    
-                    <!-- title edit field-->
-				    <label for="title">Product Title:</label>
-				    <input type="text" value="{{product[0].title}}" class="form-control" id="title" name="title" placeholder="{{product[0].title}}" required>
-
-                    <!-- description edit field-->
-				    <label for="description">Description:</label>
-				    <input type="text" value="{{product[0].description}}" class="form-control" id="description" name="description"  placeholder="{{product[0].description}}">
-
-                    <!-- retailPrice edit field-->
-				    <label for="retailPrice">Price:</label>
-				    <input type="number" value="{{product[0].retailPrice}}" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="{{product[0].retailPrice}}" required>
-                    
-                    <!-- vineyardID dropdown selection-->
-                    <label for="vineyardID">Vineyard:</label>
-                    <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
-                        <option value="0">&nbsp;</option>
-                        {% for vineyard in vineyards %}
-
-                            {% if  vineyard['vineyardID']  == product[0].vineyardID %}
-                                <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['title']}}</option>
-                            {% else %}
-                                <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
-                            {% endif %}
-
-                        {% endfor %} 
-                    </select>	 
-                </fieldset>
-
- 
+                <!-- hidden id for sql query-->
+                <input type="hidden" value="{{product[0].productID}}" class="form-control" id="productID" name="productID" required>
                 
-                </fieldset>
-                <input type="submit" value="Edit product" name="edit_product" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/products'><input class="btn" type="button" value="cancel"></a>
-            </form>
+                <!-- title edit field-->
+                <label for="title">Product Title:</label>
+                <input type="text" value="{{product[0].title}}" class="form-control" id="title" name="title" placeholder="{{product[0].title}}" required>
+
+                <!-- description edit field-->
+                <label for="description">Description:</label>
+                <input type="text" value="{{product[0].description}}" class="form-control" id="description" name="description"  placeholder="{{product[0].description}}">
+
+                <!-- retailPrice edit field-->
+                <label for="retailPrice">Price:</label>
+                <input type="number" value="{{product[0].retailPrice}}" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="{{product[0].retailPrice}}" required>
+                
+                <!-- vineyardID dropdown selection-->
+                <label for="vineyardID">Vineyard:</label>
+                <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
+                    <option value="0">&nbsp;</option>
+                    {% for vineyard in vineyards %}
+
+                        {% if  vineyard['vineyardID']  == product[0].vineyardID %}
+                            <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['title']}}</option>
+                        {% else %}
+                            <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+                        {% endif %}
+
+                    {% endfor %} 
+                </select>	 
+            </fieldset>
+
+            <input type="submit" value="Edit product" name="edit_product" class="btn btn-primary" style="margin:.5rem;">
+            <a href='/products'><input class="btn" type="button" value="cancel"></a>
+        </form>
+
+    </div>
 
 </html>

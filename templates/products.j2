@@ -1,78 +1,81 @@
 <html>
 
-<!-- boilerplate-->
-{% include 'main.j2' %}
-<head>
-    <title>Products</title>
-    <h3>Products</h3>
-</head>
+    <!-- boilerplate-->
+    {% include 'main.j2' %}
+    <head>
+        <title>Products</title>
+        <h3>Products</h3>
+    </head>
 
-<!-- display Products table-->
-<body onload="browseProducts()">
-    <div id = "product_table">
-        <table border="2" cellpadding="3">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Vineyard ID</th>
-                <th></th>
-                <th></th>
-            </tr>
-    <tbody>
-    {% for item in products %}
-    <tr>
-        <td>{{item['productID']}}</td>
-        <td>{{item['title']}}</td>
-        <td>{{item['description']}}</td>
-        <td>{{item['retailPrice']}}</td>
-        <td>{{item['vineyardID']}}</td>
-        <td><a href="edit_product/{{item['productID']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="delete_product/{{item['productID']}}" class="btn btn-default">Delete</a></td>
-    </tr>
-    {% endfor %}
-    </table>
+    <!-- display Products table-->
+    <body onload="browseProducts()">
+        <div id = "product_table">
+            <table border="2" cellpadding="3">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Vineyard ID</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    {% for item in products %}
+                        <tr>
+                            <td>{{item['productID']}}</td>
+                            <td>{{item['title']}}</td>
+                            <td>{{item['description']}}</td>
+                            <td>{{item['retailPrice']}}</td>
+                            <td>{{item['vineyardID']}}</td>
+                            <td><a href="edit_product/{{item['productID']}}" class="btn btn-default">Edit</a></td>
+                            <td><a href="delete_product/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-<p></p>
-<hr>
-<p></p>
+        <p></p>
+        <hr>
+        <p></p>
 
-<!-- display Product insert form-->
-<div id="insert">
-		
-		<form id="ProductForm" action="/products" method="POST">
-			<legend><strong>Add Product</strong></legend>
-			<fieldset>
+        <!-- display Product insert form-->
+        <div id="insert">
                 
-                <!-- title input -->
-				<label for="title">Product Title:</label>
-				<input type="text" class="form-control" id="title" name="title" placeholder="" required>
+            <form id="ProductForm" action="/products" method="POST">
+                <legend><strong>Add Product</strong></legend>
+                <fieldset>
+                    
+                    <!-- title input -->
+                    <label for="title">Product Title:</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="" required>
 
-                <!-- description input -->
-				<label for="description">Description:</label>
-				<input type="text" class="form-control" id="description" name="description"  placeholder="">
+                    <!-- description input -->
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" id="description" name="description"  placeholder="">
 
-                <!-- retailPrice input -->
-				<label for="retailPrice">Price:</label>
-				<input type="number" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="1.23" required>
-				
-                <!-- vineyardID dropdown selection -->
-                <label for="vineyardID">Vineyard:</label>
-                <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
-                <option value="0">&nbsp;</option>
-                {% for vineyard in vineyards %}    
-                        
-                    <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+                    <!-- retailPrice input -->
+                    <label for="retailPrice">Price:</label>
+                    <input type="number" class="form-control" id="retailPrice" name="retailPrice" step="0.01" min="0"  placeholder="1.23" required>
+                    
+                    <!-- vineyardID dropdown selection -->
+                    <label for="vineyardID">Vineyard:</label>
+                    <select class="form-control" id="vineyardID" name="vineyardID" pattern="{1}" placeholder="" required> 
+                    <option value="0">&nbsp;</option>
+                    {% for vineyard in vineyards %}    
+                            
+                        <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
 
-                {% endfor %} 
+                    {% endfor %} 
 
-            </fieldset>
+                </fieldset>
 
-            
-			<input type="submit" value="Add Product" name="Add_Product" class="btn btn-primary" form="ProductForm" style="margin:.5rem;">
-			<input class="btn" type="button" value="Cancel" onClick="browseProducts()"> 
-        </form>
-	</div>
+                
+                <input type="submit" value="Add Product" name="Add_Product" class="btn btn-primary" form="ProductForm" style="margin:.5rem;">
+                <input class="btn" type="button" value="Cancel" onClick="browseProducts()"> 
+            </form>
+        </div>
 
-    
+    </body>
+</html>

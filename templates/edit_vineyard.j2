@@ -10,6 +10,7 @@
         <form id="editVineyard" action="/edit_vineyard/{{vineyard[0].vineyardID}}" method="post">
             <legend><strong>Edit Product</strong></legend>
             <fieldset>
+
                 <!-- hidden id for sql query-->
                 <input type="hidden" value="{{vineyard[0].vineyardID}}" class="form-control" id="vineyardID" name="vineyardID" required>
                 
@@ -37,11 +38,11 @@
                 <label for="website">website:</label>
                 <input type="url" value="{{vineyard[0].website}}" class="form-control" id="website" size= 55 name="website" placeholder="{{vineyard[0].website}}" >
                 
-                
             </fieldset>
         
             <input type="submit" value="Edit vineyard" name="edit_vineyard" class="btn btn-primary" style="margin:.5rem;">
             <a href='/vineyards'><input class="btn" type="button" value="cancel"></a>
         </form>
+    </div>
 
 </html>
