@@ -1,28 +1,10 @@
 <html>
 <head>
-    <title>OSU - CS 340 - Introduction to Databases - Flask Demo Project</title>
+    <title>WineSeller</title>
 </head>
-<a href="/">products</a> | <a href="orders">Orders</a> | <a href="customers.html">customers</a>
-<body>
-    <h1>CS 340 - Introduction to Databases</h1>
-    <p>This is a demonstration project created to show students how to create a Flask app and connect it to a MySQL database.</p>
-</body>
+<h1>WineSeller</h1>
+    <h3>E-Commerce Wine Distributor</h3>
+    <p></p>
 
-
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Location</th>
-        <th>Favorite Language</th>
-    </tr>
-    <tbody>
-    {% for item in orders %}
-    <tr>
-        <td>{{item['customerID']}}</td>
-        <td>{{item['datePurchased']}}</td>
-        <td>{{item['orderID']}}</td>
-    </tr>
-    {% endfor %}
-    </table>
+    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
+    <hr>

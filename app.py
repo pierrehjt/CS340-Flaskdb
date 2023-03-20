@@ -1,7 +1,7 @@
 #a lot of this code is based on the course Flask Starter App walkthrough
 #https://github.com/osu-cs340-ecampus/flask-starter-app
 
-from flask import Flask, render_template, json, redirect
+from flask import Flask, render_template, redirect
 from flask_mysqldb import MySQL
 from flask import request
 #import database.db_connector as db
@@ -11,7 +11,7 @@ import os
 
 
 #********************Configuration********************
-
+#this mysql connection code based off the starter app
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
@@ -69,10 +69,13 @@ def customer():
                         securityCode\
                     )\
                     Values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            
             customerValues = (fName,lName,userName,password,birthDate,streetAddress,city,state,zip,telephone,cardNum,securityCode)
+            
             cur = mysql.connection.cursor()
             cur.execute(query, customerValues)
             mysql.connection.commit()
+
         return redirect('/customers')
 
     if request.method == "GET":
@@ -98,20 +101,20 @@ def delete_customer(id):
 @app.route("/edit_customer/<int:id>", methods=["POST","GET"])
 def edit_customer(id):
     if request.method == "GET":
-        # mySQL query to grab the info of the person with our passed id
+        
         query = "SELECT * FROM Customers WHERE customerID = %s" % (id)
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
-        # render edit_people page passing our query data and homeworld data to the edit_people template
+        
         return render_template("edit_customer.j2", customer=data)
 
-            # meat and potatoes of our update functionality
+            
     if request.method == "POST":
-        # fire off if user clicks the 'Edit Person' button
+        
         if request.form.get("edit_customer"):
-            # grab user form inputs
+            
             customerID = request.form["customerID"]
             userName = request.form["userName"]
             password = request.form["password"]
@@ -126,7 +129,7 @@ def edit_customer(id):
             cardNum = request.form["cardNum"]
             securityCode = request.form["securityCode"]
 
-            # no null inputs
+            
             query = "UPDATE Customers SET \
                         fName = %s,\
                         lName = %s,\
@@ -147,7 +150,6 @@ def edit_customer(id):
             cur.execute(query, (customerValues))
             mysql.connection.commit()
 
-            # redirect back to people page after we execute the update query
             return redirect("/customers")    
 
 #**********PRODUCTS**********
@@ -199,7 +201,7 @@ def delete_product(id):
 @app.route("/edit_product/<int:id>", methods=["POST","GET"])
 def edit_product(id):
     if request.method == "GET":
-        # mySQL query to grab the info of the person with our passed id
+       
         query = "SELECT * FROM Products WHERE productID = %s" % (id)
         cur = mysql.connection.cursor()
         cur.execute(query)
@@ -210,14 +212,10 @@ def edit_product(id):
         cur.execute(query2)
         data2 = cur.fetchall()
 
-        # render edit_people page passing our query data and homeworld data to the edit_people template
         return render_template("edit_product.j2", product=data, vineyards=data2)
 
-            # meat and potatoes of our update functionality
     if request.method == "POST":
-        # fire off if user clicks the 'Edit Person' button
         if request.form.get("edit_product"):
-            # grab user form inputs
             productID = request.form["productID"]
             title = request.form["title"]
             description = request.form["description"]
@@ -229,7 +227,6 @@ def edit_product(id):
             cur.execute(query, (title, description, retailPrice, vineyardID, productID))
             mysql.connection.commit()
 
-            # redirect back to people page after we execute the update query
             return redirect("/products")    
         
 #**********VINEYARDS**********
@@ -244,7 +241,7 @@ def vineyard():
             description = request.form["description"]
             casesYearly = request.form["casesYearly"]
             yearFounded = request.form["yearFounded"]
-            website = request.form["website"]
+            website = request.form["website"] 
             
             query = "INSERT INTO Vineyards (title, description, casesYearly, yearFounded, website) VALUES (%s, %s, %s, %s, %s)"
             cur = mysql.connection.cursor()
@@ -275,20 +272,15 @@ def delete_vineyard(id):
 @app.route("/edit_vineyard/<int:id>", methods=["POST","GET"])
 def edit_vineyard(id):
     if request.method == "GET":
-        # mySQL query to grab the info of the person with our passed id
         query = "SELECT * FROM Vineyards WHERE vineyardID = %s" % (id)
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
-        # render edit_people page passing our query data and homeworld data to the edit_people template
         return render_template("edit_vineyard.j2", vineyard=data)
 
-            # meat and potatoes of our update functionality
     if request.method == "POST":
-        # fire off if user clicks the 'Edit Person' button
         if request.form.get("edit_vineyard"):
-            # grab user form inputs
             vineyardID = request.form["vineyardID"]
             title = request.form["title"]
             description = request.form["description"]
@@ -302,7 +294,6 @@ def edit_vineyard(id):
             cur.execute(query, (title, description, casesYearly, yearFounded, website, vineyardID))
             mysql.connection.commit()
 
-            # redirect back to people page after we execute the update query
             return redirect("/vineyards")    
 
 #**********ORDERS**********
@@ -396,7 +387,6 @@ def delete_order_item(id1, id2):
 @app.route("/edit_order/<int:id>", methods=["POST","GET"])
 def edit_order(id):
     if request.method == "GET":
-        # mySQL query to grab the info of the person with our passed id
         query = "SELECT * FROM Orders WHERE orderID = %s" % (id)
         cur = mysql.connection.cursor()
         cur.execute(query)
@@ -417,14 +407,10 @@ def edit_order(id):
         cur.execute(query3)
         data3 = cur.fetchall()
 
-        # render edit_people page passing our query data and homeworld data to the edit_people template
         return render_template("edit_order.j2", order=data, orderproducts=data1, products=data2, customers=data3)
 
-            # meat and potatoes of our update functionality
     if request.method == "POST":
-        # fire off if user clicks the 'Edit Person' button
         if request.form.get("edit_order"):
-            # grab user form inputs
             orderID = request.form["orderID"]
             customerID = request.form["customerID"]
             datePurchased = request.form["datePurchased"]
@@ -442,7 +428,6 @@ def edit_order(id):
             cur.execute(query1, (datePurchased, customerID, orderID, customerID))
             mysql.connection.commit()
 
-            # redirect back to people page after we execute the update query
             return redirect("/orders")    
 
 # Listener

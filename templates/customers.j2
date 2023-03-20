@@ -1,16 +1,13 @@
 <html>
+
+{% include 'main.j2' %}
 <head>
     <title>Customers</title>
+    <h3>Customers</h3>
 </head>
-
 <body onload="browseCustomers()">
-    <h1>WineSeller</h1>
-    <h3>E-Commerce Wine Distributor</h3>
-    <p></p>
-
-    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
     <div id = "customer_table">
-        <table border="1" cellpadding="3">
+        <table border="2" cellpadding="3">
             <tr>
                 <th>ID</th>
                 <th>username</th>
@@ -49,12 +46,16 @@
     </tr>
     {% endfor %}
     </table>
+<p></p>
+<hr>
+<p></p>
 
 
 <div id="insert">
 		<!-- form to INSERT new data into bsg_people-->
 		<form id="CustomerForm" action="/customers" method="POST">
 			<legend><strong>Add Customer</strong></legend>
+            
 			<fieldset>
                 <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
 				<label for="userName">Username:</label>
@@ -73,7 +74,7 @@
 				<input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="" required>
 
                 <label for="telephone">telephone:</label>
-				<input type="tele" class="form-control" id="telephone" name="telephone" placeholder="" required>
+				<input type="tele" class="form-control" id="telephone" name="telephone" placeholder="123-456-7890" required>
 
 				<label for="streetAddress">street Address:</label>
 				<input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="" required>
@@ -85,13 +86,13 @@
 				<input type="text" class="form-control" id="state" name="state" placeholder="" required>
 
                 <label for="zip">zip:</label>
-				<input type="number" class="form-control" id="zip" name="zip" placeholder="" required>
+				<input type="number" class="form-control" id="zip" name="zip" placeholder="12345" required>
 
                 <label for="cardNum">card Number:</label>
 				<input type="number" class="form-control" id="cardNum" name="cardNum" placeholder="" required>
 
                 <label for="securityCode">security Code:</label>
-				<input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="" required>
+				<input type="number" class="form-control" id="securityCode" name="securityCode" placeholder="123" required>
                 
             </fieldset>
 

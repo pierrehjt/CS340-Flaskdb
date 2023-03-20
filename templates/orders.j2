@@ -1,16 +1,14 @@
 <html>
+
+{% include 'main.j2' %}
 <head>
     <title>Orders</title>
+    <h3>Orders</h3>
 </head>
 
 <body onload="browseOrders()">
-    <h1>WineSeller</h1>
-    <h3>E-Commerce Wine Distributor</h3>
-    <p></p>
-
-    [ <a href="/customers">Customers</a> |<a href=/products>Products</a> | <a href=/orders>Orders</a> | <a href="/vineyards">Vineyards</a>]
     <div id = "order_table">
-        <table border="1" cellpadding="3">
+        <table border="2" cellpadding="3">
             <tr>
                 <th>Date Purchased</th>
                 <th>Customer ID</th>
@@ -39,7 +37,9 @@
     </tr>
     {% endfor %}
     </table>
-
+<p></p>
+<hr>
+<p></p>
 
 <div id="insertOrder">
 		<!-- form to INSERT new data into bsg_people-->
@@ -70,6 +70,9 @@
 			<input class="btn" type="button" value="Cancel" onClick="browseOrders()"> 
         </form>
 	</div><!--insert-->
+
+<hr>
+<p></p>
 
 <div id="insertProductOrder">
 		<!-- form to INSERT new data into bsg_people-->
