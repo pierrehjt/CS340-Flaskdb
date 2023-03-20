@@ -600,10 +600,10 @@ def edit_order(id, id2):
             #if productID hasn't changed, only update quantity
             elif oldproductID == productID:
 
-                query3 ="UPDATE OrderProducts SET quantity = %s WHERE orderID = %s AND productID = %s;"
+                query3 ="UPDATE OrderProducts SET productID = %s, quantity = %s WHERE orderID = %s AND productID = %s;"
                 #execute query with values acquired from form
                 cur = mysql.connection.cursor()
-                cur.execute(query3, (quantity, orderID, oldproductID))
+                cur.execute(query3, (oldproductID, quantity, orderID, oldproductID))
                 mysql.connection.commit()
 
             #if product already exists in order, add its quantity to existing value, update order, delete previous order
