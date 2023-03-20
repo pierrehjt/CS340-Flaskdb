@@ -1,6 +1,7 @@
 /*DDL.SQL
+used to create and initialize the database for the CS340 project 
 written by: Henri Pierre and David Tuney
-lastEdited:02/16/2023*/
+lastEdited:03/20/2023*/
 
 
 SET FOREIGN_KEY_CHECKS=0;

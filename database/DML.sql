@@ -1,18 +1,20 @@
 /*group 139, Henri Pierre and David Tuney
-Data Manipulation Queries*/
+Data Manipulation Queries
+definitions of the SQL queries used in the CS340 database project
+lastEdited:03/20/2023*/
+
 
 /*Query for add a new character functionality with colon : character being used to 
 denote the variables that will have data from the backend programming language*/
 
 /***********Customer related Queries***********/
 
-/*select all customer ids and names to populate customers dropdown*/
-SELECT customerID, fName, lName FROM Customers
+/*select all customers to populate customer page/ customer dropdowns*/
+SELECT * FROM Customers
 
 
 /*select a specific customer and all their information for update customer form*/
-SELECT customerID, fName, lName, userName, password, birthDate, streetAddress, city, state, zip, telephone, cardNum, securityCode 
-FROM Customers WHERE :customerID_selected_from_browse_customer_page
+SELECT * FROM Customers WHERE customerID = :inputcustomerID
 
 
 /*add a new customer*/
@@ -63,131 +65,92 @@ UPDATE Customers SET
 WHERE customerID = :customerID_from_update_form
 
 /*delete a customer*/
-DELETE FROM Customers WHERE customerID = :customerID_selected_from_browse_customer_page;
+DELETE FROM Customers WHERE customerID = :inputcustomerID
 
 
 /***********Order related Queries***********/
+/*add order*/
+INSERT INTO Orders (datePurchased, customerID) VALUES (:inputdatePurchased, :inputcustomerID)
 
-/* add a new order*/
-INSERT INTO Orders(customerID, datePurchased)
-VALUES(:customerID_from_dropdown, :dateinput)
+/*add product to order*/
+INSERT INTO OrderProducts (orderID, productID, quantity) VALUES (:inputorderID, :inputproductID, :inputquantity)
 
-/*select all order information to populate orders dropdown*/
+/* select order information to populate orders page */
 SELECT 
-	
-    CONCAT(fName,' ',lName) AS name,
-    Customers.customerID,
-    sum(OrderProducts.quantity) as total_products_ordered,
-    sum(Products.retailPrice * OrderProducts.quantity) as total_price
-	
-From Customers
+	Orders.datePurchased,
+	Customers.customerID,
+	Orders.orderID,
+	Products.productID,
+	Products.title,
+	sum(OrderProducts.quantity) as quantity_ordered,
+	sum(Products.retailPrice * OrderProducts.quantity) as total_price
+FROM Customers
 	JOIN Orders ON Customers.customerID = Orders.customerID
 	JOIN OrderProducts ON Orders.orderID = OrderProducts.orderID
 	LEFT JOIN Products ON OrderProducts.productID = Products.productID
-GROUP BY name, Orders.orderID
+GROUP BY orderID, Products.productID
+
+/*select all orders to populate orders dropdown*/
+SELECT * FROM Orders
+
+/*select a specific order to edit*/
+SELECT * FROM Orders WHERE orderID = :inputorderID
+
+/*select all products in an order*/
+SELECT * FROM OrderProducts WHERE orderID = :inputorderID
+
+/*select specific productid for checking if a product is associated with an order*/
+SELECT productID FROM OrderProducts WHERE orderID = :inputorderID AND productID = :inputproductID
+
+/*delete selected order*/
+DELETE FROM Orders WHERE orderID = :inputorderID
+
+/*deleted selected item from order*/
+DELETE FROM OrderProducts WHERE orderID = :inputorderID AND productID = :productID
+
+/*add user input amount of product to existing order*/
+UPDATE OrderProducts SET quantity = quantity + :inputquantity WHERE orderID = :inputorderID AND productID = :inputproductID;
 
 
-/*select a specific order and all its information for update order form*/
-SELECT 
-	Orders.customerID,
-    Orders.datePurchased,
-    OrderProducts.quantity,
-    Products.productID,
-    Products.title
-FROM Orders
-	JOIN OrderProducts ON Orders.orderID = OrderProducts.orderID
-    JOIN Products ON OrderProducts.productID = Products.productID
-WHERE Orders.orderID = :orderID_selected_from_browse_order_page
+/*update specific product in order*/
+UPDATE OrderProducts SET productID = :productID, quantity = :inputquantity WHERE orderID = :inputorderID AND productID = :productID;
 
-
-
-
-/*update a specific Orders purchase date*/
-UPDATE Products SET 
-	datePurchased = :newdate
-WHERE orderID = :orderID_from_update_form
-
-/*remove an order*/
-DELETE FROM Orders WHERE orderID = :orderID_selected_from_browse_order_page;
-
-
-/***********product order Queries***********/
-/*add a product to an order*/
-INSERT INTO OrderProducts (orderID, productID, quantity)
-values (:orderID_from_update_form, :productIDinput, :quantityinput)
-
-
-/*remove a product from an order*/
-DELETE FROM orderProducts WHERE productID = :productIDinput
-
-/*update product ordered*/
-UPDATE OrderProducts SET
-	productID = :product_from_update_form
-	quantity = :quantityinput
-WHERE orderID = :orderID_from_update_form
+/*update specific order*/
+UPDATE Orders SET datePurchased = :inputdatePurchased, customerID = :inputcustomerID WHERE orderID = :inputorderID AND customerID = :inputcustomerID;
 
 
 /***********product related Queries***********/
-/*add a new product*/
-INSERT INTO Products (title, description, retailPrice, vineyardID)
-Values (:titleinput, :descinput, :priceinput, :vineyard_dropdown)
+/*select all Products to populate Products page/ Product dropdowns*/
+SELECT * FROM Products
 
-/*select all product ids and titles to populate products dropdown*/
-SELECT productID, title FROM Products;
+/*select specific product to edit*/
+SELECT * FROM Products WHERE productID = :inputproductID
 
+/*select specific productid for checking if a product is associated with an order*/
+SELECT productID FROM Products WHERE productID = %s
 
-/*select a specific product and all its information for update product form*/
-SELECT productID, title, description, retailPrice, vineyardID
-FROM Products
-WHERE :productID_selected_from_browse_product_page
+/*insert new product*/
+INSERT INTO Products (title, description, retailPrice, vineyardID) VALUES (:inputtitle, :inputdescription, :inputretailPrice, :inputvineyardID)
 
+/*delete product*/
+DELETE FROM Products WHERE productID = :inputproductID
 
-/*update a specific product and all its information from update product form*/
-UPDATE Products SET 
-	title =:titleinput
-	description =:descinput
-	retailPrice = :priceinput
-WHERE productID = :productID_from_update_form
-
-
-/*delete a product*/
-DELETE FROM Products WHERE productID = :productID_selected_from_browse_product_page;
+/*edit selected product*/
+UPDATE Products SET title =:inputtitle, description =:inputdescription, retailPrice =:inputretailPrice,vineyardID =:inputvineyardID WHERE productID =:inputproductID
 
 /***********Vineyard related Queries***********/
-/*add a new vineyard*/
-INSERT INTO Vineyards(title, description, casesYearly, yearFounded, website)
-values (:titleinput, :descriptioninput, :casesYearlyinput, :yearinput, :websiteinput)
+/*select all Vineyards to populate Vineyards page/ Vineyard dropdowns*/
+SELECT * FROM Vineyards;
 
-/*select all vineyards to populate vineyards dropdown*/
-SELECT 
-	Vineyards.vineyardID,
-    Vineyards.title,
-	Vineyards.description,
-	Vineyards.casesYearly,
-	Vineyards.yearFounded,
-	Vineyards.website
-From Vineyards
-GROUP BY vineyardID
+/*select specific vineyard to edit*/
+SELECT * FROM Vineyards WHERE vineyardID = :inputvineyardID
 
-/*select all wines associated to a vineyard*/
-SELECT 
-	Products.productID,
-	Products.title AS Product_Name,
-    Products.retailPrice
-FROM Vineyards
-	LEFT JOIN Products ON Vineyards.vineyardID = Products.vineyardID
-WHERE Vineyards.vineyardID = :selected_vineyard
+/*create new vineyard*/
+INSERT INTO Vineyards (title, description, casesYearly, yearFounded, website) VALUES (:inputtitle, :inputdescription, :inputcasesYearly, :inputyearFounded, :inputwebsite)
 
-/*update a vineyard*/
-UPDATE Vineyards SET
-	vineyardID = :product_from_update_form
-	title = :titleinput
-	description = :descriptioninput
-	casesYearly = :casesYearlyinput
-	yearFounded = :yearFoundedinput
-	website = :websiteinput
-WHERE orderID = :orderID_from_update_form
+/*delete vineyard*/
+DELETE FROM Vineyards WHERE vineyardID = :inputvineyardID
 
-/*delete a vineyard*/
-DELETE FROM Vineyards WHERE vineyardID = :vineyardID_selected_from_browse_vineyards_page;
+/*edit specific vineyard*/
+UPDATE Vineyards SET title =:inputtitle, description =:inputdescription, casesYearly = :inputcasesYearly,yearFounded = :inputyearFounded,website = :inputwebsite WHERE vineyardID = :inputvineyardID
 

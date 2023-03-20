@@ -1,5 +1,7 @@
+#written by: Henri Pierre and David Tuney
 #a lot of this code is based on the course Flask Starter App walkthrough
 #https://github.com/osu-cs340-ecampus/flask-starter-app
+#lastEdited:03/20/2023*/
 
 from flask import Flask, render_template, redirect
 from flask_mysqldb import MySQL
