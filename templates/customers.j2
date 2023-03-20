@@ -48,7 +48,7 @@
                             <!-- edit -->
                             <td><a href="edit_customer/{{item['customerID']}}" class="btn btn-default">Edit</a></td>
                             <!-- delete -->
-                            <td><a href="delete_customer/{{item['customerID']}}" class="btn btn-default">Delete</a></td>
+                            <td><a href="delete_customer/{{item['customerID']}}" onclick="return confirm('Are you sure you wish to delete this customer?')" class="btn btn-default">Delete</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

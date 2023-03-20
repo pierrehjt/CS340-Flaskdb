@@ -4,8 +4,8 @@
     {% include 'main.j2' %}
 
     <head>
-        <title>Vineyards</title>
-        <h3>Vineyards</h3>
+        <title>Producers</title>
+        <h3>Producers</h3>
     </head>
 
     <!-- display Vineyards table-->
@@ -32,7 +32,7 @@
                             <td>{{item['yearFounded']}}</td>
                             <td>{{item['website']}}</td>
                             <td><a href="edit_vineyard/{{item['vineyardID']}}" class="btn btn-default">Edit</a></td>
-                            <td><a href="delete_vineyard/{{item['vineyardID']}}" class="btn btn-default">Delete</a></td>
+                            <td><a href="delete_vineyard/{{item['vineyardID']}}" onclick="return confirm('Are you sure you wish to delete this producer?')"class="btn btn-default">Delete</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -48,11 +48,11 @@
         <div id="insert">
                 
             <form id="vineyardForm" action="/vineyards" method="POST">
-                <legend><strong>Add Vineyard</strong></legend>
+                <legend><strong>Add Producer</strong></legend>
 
                 <fieldset>
                     <!-- title input -->
-                    <label for="title">Vineyard Title:</label>
+                    <label for="title">Producers Title:</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="" required>
 
                     <!-- description input -->

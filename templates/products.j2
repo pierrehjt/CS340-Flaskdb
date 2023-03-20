@@ -29,7 +29,7 @@
                             <td>{{item['retailPrice']}}</td>
                             <td>{{item['vineyardID']}}</td>
                             <td><a href="edit_product/{{item['productID']}}" class="btn btn-default">Edit</a></td>
-                            <td><a href="delete_product/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+                            <td><a href="delete_product/{{item['productID']}}" onclick="return confirm('Are you sure you wish to delete this product?')"class="btn btn-default">Delete</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -65,7 +65,7 @@
                     <option value="0">&nbsp;</option>
                     {% for vineyard in vineyards %}    
                             
-                        <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+                        <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['vineyardID']}} - {{vineyard['title']}}</option> 
 
                     {% endfor %} 
 

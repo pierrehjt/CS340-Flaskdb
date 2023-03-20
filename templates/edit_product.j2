@@ -33,9 +33,9 @@
                     {% for vineyard in vineyards %}
 
                         {% if  vineyard['vineyardID']  == product[0].vineyardID %}
-                            <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['title']}}</option>
+                            <option value="{{ vineyard['vineyardID'] }}" selected> {{vineyard['vineyardID']}} - {{vineyard['title']}}</option>
                         {% else %}
-                            <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['title']}}</option> 
+                            <option value="{{ vineyard['vineyardID'] }}"> {{vineyard['vineyardID']}} - {{vineyard['title']}}</option> 
                         {% endif %}
 
                     {% endfor %} 

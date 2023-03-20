@@ -36,9 +36,9 @@
                             <td>{{item['total_price']}}</td>
                             <td><a href="edit_order/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Edit</a></td>
                             <!-- deletes this specific item purchase from the order -->
-                            <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" class="btn btn-default">Delete</a></td>
+                            <td><a href="delete_order_item/{{item['orderID']}}/{{item['productID']}}" onclick="return confirm('Are you sure you wish to delete this item from the order?')"class="btn btn-default">Delete</a></td>
                             <!-- deletes the entire order with all associated item purchases -->
-                            <td><a href="delete_order/{{item['orderID']}}" class="btn btn-default">Delete entire order</a></td>
+                            <td><a href="delete_order/{{item['orderID']}}" onclick="return confirm('Are you sure you wish to delete this entire order?')"class="btn btn-default">Delete order {{item['orderID']}} entirely</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -65,7 +65,7 @@
                     <option value="0">&nbsp;</option>
                     {% for customer in customers %}
                             
-                        <option value="{{ customer['customerID'] }}"> {{customer['customerID']}}  </option> 
+                        <option value="{{ customer['customerID'] }}"> {{customer['customerID']}} - {{customer['fName']}} {{customer['lName']}} </option> 
 
                     {% endfor %} 
 
