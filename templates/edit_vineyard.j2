@@ -8,14 +8,14 @@
     <div id="edit">
             
         <form id="editVineyard" action="/edit_vineyard/{{vineyard[0].vineyardID}}" method="post">
-            <legend><strong>Edit Producer</strong></legend>
+            <legend><strong>Edit Vineyard</strong></legend>
             <fieldset>
 
                 <!-- hidden id for sql query-->
                 <input type="hidden" value="{{vineyard[0].vineyardID}}" class="form-control" id="vineyardID" name="vineyardID" required>
                 
                 <!-- title edit field-->
-                <label for="title">Producer Title:</label>
+                <label for="title">Vineyard Title:</label>
                 <input type="text" value="{{vineyard[0].title}}" class="form-control" id="title" name="title" placeholder="{{vineyard[0].title}}" required>
                 <p></p>
 

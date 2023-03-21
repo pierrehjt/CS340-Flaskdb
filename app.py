@@ -31,7 +31,8 @@ mysql = MySQL(app)
 @app.route('/')
 def root():
 
-    return redirect('/customers')
+    return render_template("main.j2")
+    #return redirect('/customers')
 
 #**********CUSTOMERS**********
 #*****CREATE/READ*****
