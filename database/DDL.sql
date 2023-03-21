@@ -3,7 +3,7 @@ used to create and initialize the database for the CS340 project
 written by: Henri Pierre and David Tuney
 lastEdited:03/20/2023*/
 
-
+/*IF IMPORTING IN PHPMYADMIN THIS WILL NOT DISABLE FOREIGN KEY CHECKS, YOU MUST USE THE CHECKBOX*/
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT=0;
 
@@ -76,7 +76,7 @@ CREATE OR REPLACE TABLE OrderProducts(
 
 
 
-
+/*Customers sample data*/
 INSERT INTO Customers
 (
 	userName,
@@ -109,6 +109,7 @@ VALUES
     'mcampbell90', 'focRiS=lP9fRinA-L_E-', 'Mary', 'Campbell', '1994-08-21', '(306) 158-5494', '2335 Lunetta Street', 'Clearwater', 'Florida', '83906', '7931897834276141', '132'
 );
 
+/*Orders sample data*/
 INSERT INTO Orders( customerID, datePurchased)
 VALUES
 ('1',20230209),
@@ -117,6 +118,8 @@ VALUES
 ('4',20230211),
 ('5',20230212);
 
+
+/*Vineyards sample data*/
 INSERT INTO Vineyards(title, description, casesYearly, yearFounded, website)
 VALUES
 (
@@ -134,7 +137,7 @@ VALUES
 	'https://www.williamhillestate.com/'
 );
 
-
+/*Products sample data*/
 INSERT INTO Products(productID, title, description, retailPrice, vineyardID)
 VALUES
 (
